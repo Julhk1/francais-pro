@@ -31,6 +31,10 @@ body{min-height:100dvh;background:
   radial-gradient(800px 480px at 115% 5%,rgba(14,165,233,.25),transparent 55%),
   radial-gradient(700px 500px at 50% 120%,rgba(249,115,22,.12),transparent 60%),#0b0e22;
   background-attachment:fixed}
+body.en{background:
+  radial-gradient(900px 520px at -10% -10%,rgba(37,99,235,.38),transparent 60%),
+  radial-gradient(800px 480px at 115% 5%,rgba(225,29,72,.2),transparent 55%),
+  radial-gradient(700px 500px at 50% 120%,rgba(14,165,233,.12),transparent 60%),#0b0e22;background-attachment:fixed}
 main{max-width:640px;margin:0 auto;padding:calc(14px + var(--st)) 16px calc(var(--nav) + var(--sb) + 28px)}
 .view{display:none}
 .view.on{display:block;animation:fade .28s ease}
@@ -58,10 +62,15 @@ textarea{resize:vertical;min-height:150px;line-height:1.5}
 .inp+.inp{margin-top:10px}
 ::placeholder{color:#6f74a0}
 .vh{display:flex;align-items:center;gap:14px;margin:6px 0 4px}
+.vh>div:nth-child(2){flex:1;min-width:0}
 .ico{width:50px;height:50px;border-radius:16px;display:grid;place-items:center;font-size:24px;flex:none;background:linear-gradient(135deg,var(--a),var(--b));box-shadow:0 10px 24px -10px var(--b)}
 .seg{display:flex;background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:16px;padding:4px;gap:4px;margin:14px 0}
 .seg button{flex:1;border:0;background:none;color:var(--mu);padding:10px 6px;border-radius:12px;font-family:inherit;font-weight:700;font-size:13.5px;cursor:pointer}
 .seg button.on{background:linear-gradient(135deg,var(--a),var(--b));color:#fff}
+/* bouton de langue */
+.lsw{display:inline-flex;flex:none;background:rgba(255,255,255,.07);border:1px solid var(--line);border-radius:14px;padding:3px;align-self:flex-start}
+.lsw button{border:0;background:none;color:var(--mu);font-family:inherit;font-weight:800;font-size:13px;padding:8px 10px;border-radius:11px;cursor:pointer;white-space:nowrap}
+.lsw button.on{background:#fff;color:#0b0e22;box-shadow:0 4px 14px -4px rgba(255,255,255,.4)}
 /* nav */
 nav.tab{position:fixed;left:0;right:0;bottom:0;z-index:30;padding:7px 6px calc(7px + var(--sb));background:rgba(11,14,34,.82);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-top:1px solid var(--line)}
 nav.tab .in{max-width:640px;margin:0 auto;display:flex}
@@ -70,9 +79,11 @@ nav.tab svg{width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:2;
 nav.tab a.on{color:#fff}
 nav.tab a.on svg{stroke:var(--c2a)}
 /* home */
-.hero{display:flex;justify-content:space-between;align-items:flex-start;margin:8px 0 6px}
+.hero{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin:8px 0 6px}
 .hero h1{font-size:30px}
+.hr{display:flex;flex-direction:column;align-items:flex-end;gap:10px}
 .grad{background:linear-gradient(90deg,#c4b5fd,#67e8f9);-webkit-background-clip:text;background-clip:text;color:transparent}
+body.en .grad{background-image:linear-gradient(90deg,#93c5fd,#fda4af)}
 .gear{width:44px;height:44px;border-radius:14px;background:var(--card2);display:grid;place-items:center;text-decoration:none;font-size:20px}
 .gcard{display:flex;align-items:center;gap:14px;text-decoration:none;color:inherit;position:relative;overflow:hidden}
 .gcard:active{transform:scale(.985)}
@@ -124,7 +135,8 @@ details[open] summary::before{content:"▾ "}
 .sb-txt{flex:1;min-width:0;font-size:17px;line-height:1.4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .sb-btns{display:flex;gap:6px}
 .sb-btns button{border:0;border-radius:13px;padding:11px 13px;font-family:inherit;font-weight:800;font-size:14px;color:#fff;background:linear-gradient(135deg,var(--c1a),var(--c1b));cursor:pointer}
-.sb-btns button+button{background:linear-gradient(135deg,var(--c2a),var(--c2b))}
+.sb-btns button[data-l=en]{background:linear-gradient(135deg,#60a5fa,#e11d48)}
+body.en .sb-btns,body.en #shSeg{flex-direction:row-reverse}
 #sheetBg{position:fixed;inset:0;z-index:50;background:rgba(3,5,18,.55);opacity:0;pointer-events:none;transition:.25s}
 #sheet{position:fixed;left:0;right:0;bottom:0;z-index:51;max-width:640px;margin:0 auto;max-height:82dvh;overflow:auto;background:#151938;border:1px solid var(--line);border-bottom:0;border-radius:26px 26px 0 0;padding:10px 18px calc(18px + var(--sb));transform:translateY(105%);transition:transform .3s cubic-bezier(.2,.8,.2,1);--a:var(--c1a);--b:var(--c1b)}
 .sheet-on #sheetBg{opacity:1;pointer-events:auto}
@@ -155,10 +167,12 @@ details[open] summary::before{content:"▾ "}
 .wi>div{flex:1;min-width:0}
 .wi b{display:block;font-size:15px}
 .wi span{font-size:13px;color:var(--mu)}
+.wi small{display:block;font-size:11.5px;color:#7d82ad;margin-top:2px}
 .ib{width:38px;height:38px;border-radius:12px;border:0;background:var(--card2);font-size:15px;flex:none;cursor:pointer}
 .code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12.5px;min-height:320px;white-space:pre;overflow:auto;line-height:1.5}
 .big{font-size:54px}
 .empty{text-align:center;padding:30px 10px}
+.info{font-size:13px;line-height:1.5;color:#cfd2f1;padding:12px 14px;border-radius:14px;background:rgba(96,165,250,.1);border:1px solid rgba(96,165,250,.25);margin-top:14px}
 /* timer */
 .ring{position:relative;width:min(78vw,280px);aspect-ratio:1;margin:8px auto 18px}
 .ring svg{width:100%;height:100%;transform:rotate(-90deg)}
@@ -184,50 +198,51 @@ details[open] summary::before{content:"▾ "}
 <!-- ============ ACCUEIL ============ -->
 <section class="view" id="v-home">
   <div class="hero">
-    <div><p class="sub" id="hello">Bonjour 👋</p><h1>Ton <span class="grad">français pro</span>,<br>chaque jour.</h1></div>
-    <a class="gear" href="#backup" aria-label="Sauvegarde">⚙️</a>
+    <div><p class="sub" id="hello">Bonjour 👋</p>
+      <h1><span data-en="Your">Ton</span> <span class="grad" data-en="pro English">français pro</span>,<br><span data-en="every day.">chaque jour.</span></h1></div>
+    <div class="hr"><div class="lsw"><button data-mode="fr">🇫🇷 FR</button><button data-mode="en">🇬🇧 EN</button></div><a class="gear" href="#backup" aria-label="Sauvegarde">⚙️</a></div>
   </div>
-  <div class="num">Tes exercices</div>
-  <a class="card gcard t1" href="#read"><div class="ico">📖</div><div class="txt"><b>Lecture en arabe</b><p class="sub">Tes documents découpés en 500 mots, traduits en arabe</p><div class="stat" id="s1"></div></div><span class="arr">›</span></a>
-  <a class="card gcard t2" href="#syn"><div class="ico">🔁</div><div class="txt"><b>Synonymes</b><p class="sub">Trouve deux synonymes pour chaque mot</p><div class="stat" id="s2"></div></div><span class="arr">›</span></a>
-  <a class="card gcard t3" href="#ant"><div class="ico">⇄</div><div class="txt"><b>Antonymes</b><p class="sub">Trouve les contraires</p><div class="stat" id="s3"></div></div><span class="arr">›</span></a>
-  <a class="card gcard t4" href="#timer"><div class="ico">⏱️</div><div class="txt"><b>Minuteur</b><p class="sub">Un exercice mental chronométré</p><div class="stat" id="s4"></div></div><span class="arr">›</span></a>
-  <p class="sub center" style="margin-top:18px">Tout est enregistré sur ce téléphone. Pense à faire une sauvegarde de temps en temps ⚙️</p>
+  <div class="num" data-en="Your exercises">Tes exercices</div>
+  <a class="card gcard t1" href="#read"><div class="ico">📖</div><div class="txt"><b data-en="Reading in Arabic">Lecture en arabe</b><p class="sub" data-en="Your documents split into 500 words, translated into Arabic">Tes documents découpés en 500 mots, traduits en arabe</p><div class="stat" id="s1"></div></div><span class="arr">›</span></a>
+  <a class="card gcard t2" href="#syn"><div class="ico">🔁</div><div class="txt"><b data-en="Synonyms">Synonymes</b><p class="sub" data-en="Find two synonyms for each word">Trouve deux synonymes pour chaque mot</p><div class="stat" id="s2"></div></div><span class="arr">›</span></a>
+  <a class="card gcard t3" href="#ant"><div class="ico">⇄</div><div class="txt"><b data-en="Antonyms">Antonymes</b><p class="sub" data-en="Find the opposites">Trouve les contraires</p><div class="stat" id="s3"></div></div><span class="arr">›</span></a>
+  <a class="card gcard t4" href="#timer"><div class="ico">⏱️</div><div class="txt"><b data-en="Timer">Minuteur</b><p class="sub" data-en="A timed mental exercise">Un exercice mental chronométré</p><div class="stat" id="s4"></div></div><span class="arr">›</span></a>
+  <p class="sub center" style="margin-top:18px" data-en="Everything is saved on this phone. Remember to make a backup from time to time ⚙️">Tout est enregistré sur ce téléphone. Pense à faire une sauvegarde de temps en temps ⚙️</p>
 </section>
  
 <!-- ============ JEU 1 : DOCUMENTS ============ -->
 <section class="view t1" id="v-read">
-  <div class="vh"><div class="ico">📖</div><div><h1>Lecture en arabe</h1><p class="sub">Ajoute un document, lis-le en arabe, traduis dans ta tête</p></div></div>
-  <div class="seg" id="addSeg"><button data-m="pdf" class="on">📄 PDF / fichier</button><button data-m="txt">✍️ Coller un texte</button></div>
+  <div class="vh"><div class="ico">📖</div><div><h1 data-en="Reading">Lecture en arabe</h1><p class="sub" data-en="Read in Arabic, translate into English in your head">Lis en arabe, traduis dans ta tête</p></div><div class="lsw"><button data-mode="fr">🇫🇷</button><button data-mode="en">🇬🇧</button></div></div>
+  <div class="seg" id="addSeg"><button data-m="pdf" class="on" data-en="📄 PDF / file">📄 PDF / fichier</button><button data-m="txt" data-en="✍️ Paste a text">✍️ Coller un texte</button></div>
   <div class="card" id="addPdf">
-    <label class="drop"><span style="font-size:30px">📄</span><b>Choisir un PDF</b><span class="sub">ou un fichier .txt — contrat, CGV, rapport…</span>
+    <label class="drop"><span style="font-size:30px">📄</span><b data-en="Choose a PDF">Choisir un PDF</b><span class="sub" data-en="or a .txt file — contract, T&amp;Cs, report…">ou un fichier .txt — contrat, CGV, rapport…</span>
       <input type="file" id="fileIn" accept="application/pdf,.pdf,.txt,text/plain" hidden></label>
     <p class="sub center" id="pdfStatus" style="margin-top:10px"></p>
   </div>
   <div class="card" id="addTxt" hidden>
-    <input class="inp" id="txtTitle" placeholder="Titre (ex : CGV fournisseur)">
-    <textarea class="inp" id="txtBody" placeholder="Colle ton texte ici (français, anglais ou arabe)…" style="margin-top:10px"></textarea>
-    <button class="btn pri wide" id="txtAdd">Créer l'exercice</button>
+    <input class="inp" id="txtTitle" placeholder="Titre (ex : CGV fournisseur)" data-en-ph="Title (e.g. supplier T&Cs)">
+    <textarea class="inp" id="txtBody" placeholder="Colle ton texte ici (français, anglais ou arabe)…" data-en-ph="Paste your text here (French, English or Arabic)…" style="margin-top:10px"></textarea>
+    <button class="btn pri wide" id="txtAdd" data-en="Create the exercise">Créer l'exercice</button>
   </div>
-  <div class="num">Mes documents</div>
+  <div class="num" data-en="My documents">Mes documents</div>
   <div class="card" id="docList"></div>
 </section>
  
 <!-- ============ JEU 1 : LECTEUR ============ -->
 <section class="view t1" id="v-doc">
-  <div class="topbar"><a href="#read" class="back">‹</a><div class="tt"><div id="docTitle" class="ell"></div><div class="sub" id="docProg"></div></div></div>
+  <div class="topbar"><a href="#read" class="back">‹</a><div class="tt"><div id="docTitle" class="ell"></div><div class="sub" id="docProg"></div></div><div class="lsw"><button data-mode="fr">🇫🇷</button><button data-mode="en">🇬🇧</button></div></div>
   <div class="pbar"><i id="docBar"></i></div>
   <div class="tools">
     <select id="docLang" aria-label="Langue d'origine">
-      <option value="fr">Original : français</option><option value="en">Original : anglais</option><option value="ar">Original : arabe</option>
+      <option value="fr" data-en="Original: French">Original : français</option><option value="en" data-en="Original: English">Original : anglais</option><option value="ar" data-en="Original: Arabic">Original : arabe</option>
     </select>
     <div class="fsz"><button id="fsM">A−</button><button id="fsP">A+</button></div>
   </div>
   <div class="card read"><div id="arText" class="ar"></div></div>
-  <p class="hint center">👆 Touche un mot ou sélectionne une phrase pour la traduire</p>
-  <details class="card" id="origWrap"><summary>Voir le texte original</summary><div class="orig" id="origText"></div></details>
-  <div class="row"><button class="btn" id="btnPrev">‹ Précédent</button><button class="btn pri" id="btnNext">Suivant ›</button></div>
-  <div class="card"><h3>⭐ Mon carnet <span class="sub" id="noteCnt"></span></h3><div id="notes"></div></div>
+  <p class="hint center" data-en="👆 Tap a word or select a sentence to translate it">👆 Touche un mot ou sélectionne une phrase pour la traduire</p>
+  <details class="card" id="origWrap"><summary data-en="Show the original text">Voir le texte original</summary><div class="orig" id="origText"></div></details>
+  <div class="row"><button class="btn" id="btnPrev" data-en="‹ Previous">‹ Précédent</button><button class="btn pri" id="btnNext"></button></div>
+  <div class="card"><h3><span data-en="⭐ My notebook">⭐ Mon carnet</span> <span class="sub" id="noteCnt"></span></h3><div id="notes"></div></div>
 </section>
  
 <!-- ============ JEUX 2 & 3 (générés) ============ -->
@@ -236,43 +251,43 @@ details[open] summary::before{content:"▾ "}
  
 <!-- ============ JEU 4 : MINUTEUR ============ -->
 <section class="view t4" id="v-timer">
-  <div class="vh"><div class="ico">⏱️</div><div><h1>Minuteur</h1><p class="sub">Choisis ta durée, lance, fais ton exercice dans ta tête</p></div></div>
+  <div class="vh"><div class="ico">⏱️</div><div><h1 data-en="Timer">Minuteur</h1><p class="sub" data-en="Pick a duration, start, do your exercise in your head">Choisis ta durée, lance, fais ton exercice dans ta tête</p></div><div class="lsw"><button data-mode="fr">🇫🇷</button><button data-mode="en">🇬🇧</button></div></div>
   <div class="card" id="tCard">
     <div class="ring">
       <svg viewBox="0 0 260 260"><defs><linearGradient id="tg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#34d399"/><stop offset="1" stop-color="#0ea5e9"/></linearGradient></defs>
         <circle class="trk" cx="130" cy="130" r="115"/><circle class="prg" id="tPrg" cx="130" cy="130" r="115" stroke-dasharray="722.57" stroke-dashoffset="0"/></svg>
-      <div class="tc"><div id="tTime">05:00</div><div class="sub" id="tState">Prêt</div></div>
+      <div class="tc"><div id="tTime">05:00</div><div class="sub" id="tState"></div></div>
     </div>
     <div class="stepper"><button data-s="-1">−</button><div class="mv"><input class="inp" type="number" id="tMin" min="1" max="180" inputmode="numeric"><span class="sub">min</span></div><button data-s="1">+</button></div>
     <div class="chips presets" id="tPre"></div>
-    <div class="row" style="margin-top:18px"><button class="btn" id="tReset">Réinitialiser</button><button class="btn pri" id="tGo">Démarrer</button></div>
+    <div class="row" style="margin-top:18px"><button class="btn" id="tReset" data-en="Reset">Réinitialiser</button><button class="btn pri" id="tGo"></button></div>
   </div>
-  <p class="sub center">L'écran reste allumé pendant le décompte. Un son et une vibration t'avertissent à la fin.</p>
+  <p class="sub center" data-en="The screen stays on during the countdown. A sound and a vibration tell you when it ends.">L'écran reste allumé pendant le décompte. Un son et une vibration t'avertissent à la fin.</p>
 </section>
  
 <!-- ============ SAUVEGARDE ============ -->
 <section class="view" id="v-backup">
-  <div class="topbar"><a href="#home" class="back">‹</a><div class="tt"><div class="ell">Sauvegarde</div><div class="sub">Garde une copie de tes données ailleurs</div></div></div>
+  <div class="topbar"><a href="#home" class="back">‹</a><div class="tt"><div class="ell" data-en="Backup">Sauvegarde</div><div class="sub" data-en="Keep a copy of your data elsewhere">Garde une copie de tes données ailleurs</div></div></div>
   <div class="card">
-    <h3>📤 Exporter</h3>
-    <p class="sub">Documents, progression, carnets, synonymes et antonymes (les traductions se refont toutes seules).</p>
-    <div class="row"><button class="btn pri" id="bkCopy">📋 Copier</button><button class="btn" id="bkDl">⬇️ Télécharger</button></div>
+    <h3 data-en="📤 Export">📤 Exporter</h3>
+    <p class="sub" data-en="Documents, progress, notebooks, synonyms and antonyms in French and English (translations rebuild themselves).">Documents, progression, carnets, synonymes et antonymes en français et en anglais (les traductions se refont toutes seules).</p>
+    <div class="row"><button class="btn pri" id="bkCopy" data-en="📋 Copy">📋 Copier</button><button class="btn" id="bkDl" data-en="⬇️ Download">⬇️ Télécharger</button></div>
   </div>
   <div class="card">
-    <h3>📥 Restaurer</h3>
-    <textarea id="bkIn" class="code" style="min-height:140px" placeholder="Colle ici une sauvegarde…"></textarea>
-    <button class="btn wide" id="bkRestore">Restaurer cette sauvegarde</button>
+    <h3 data-en="📥 Restore">📥 Restaurer</h3>
+    <textarea id="bkIn" class="code" style="min-height:140px" placeholder="Colle ici une sauvegarde…" data-en-ph="Paste a backup here…"></textarea>
+    <button class="btn wide" id="bkRestore" data-en="Restore this backup">Restaurer cette sauvegarde</button>
   </div>
 </section>
  
 </main>
  
 <nav class="tab"><div class="in">
-  <a href="#home" data-v="home"><svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>Accueil</a>
-  <a href="#read" data-v="read"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>Lecture</a>
-  <a href="#syn" data-v="syn"><svg viewBox="0 0 24 24"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></svg>Synonymes</a>
-  <a href="#ant" data-v="ant"><svg viewBox="0 0 24 24"><path d="M8 3 4 7l4 4"/><path d="M4 7h16"/><path d="m16 21 4-4-4-4"/><path d="M20 17H4"/></svg>Antonymes</a>
-  <a href="#timer" data-v="timer"><svg viewBox="0 0 24 24"><path d="M10 2h4"/><path d="m12 14 3-3"/><circle cx="12" cy="14" r="8"/></svg>Minuteur</a>
+  <a href="#home" data-v="home"><svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg><span data-en="Home">Accueil</span></a>
+  <a href="#read" data-v="read"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg><span data-en="Reading">Lecture</span></a>
+  <a href="#syn" data-v="syn"><svg viewBox="0 0 24 24"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></svg><span data-en="Synonyms">Synonymes</span></a>
+  <a href="#ant" data-v="ant"><svg viewBox="0 0 24 24"><path d="M8 3 4 7l4 4"/><path d="M4 7h16"/><path d="m16 21 4-4-4-4"/><path d="M20 17H4"/></svg><span data-en="Antonyms">Antonymes</span></a>
+  <a href="#timer" data-v="timer"><svg viewBox="0 0 24 24"><path d="M10 2h4"/><path d="m12 14 3-3"/><circle cx="12" cy="14" r="8"/></svg><span data-en="Timer">Minuteur</span></a>
 </div></nav>
  
 <div id="selBar"><div class="sb-in"><div class="sb-txt ar" id="sbTxt"></div><div class="sb-btns"><button data-l="fr">🇫🇷 FR</button><button data-l="en">🇬🇧 EN</button></div></div></div>
@@ -282,9 +297,9 @@ details[open] summary::before{content:"▾ "}
   <div id="shSrc" class="ar"></div>
   <div class="seg" id="shSeg"><button data-l="fr">🇫🇷 Français</button><button data-l="en">🇬🇧 English</button></div>
   <div id="shRes"></div>
-  <div class="row"><button class="btn" id="shKeep">⭐ Garder</button><button class="btn pri" id="shClose">Retour au texte</button></div>
+  <div class="row"><button class="btn" id="shKeep" data-en="⭐ Keep">⭐ Garder</button><button class="btn pri" id="shClose" data-en="Back to the text">Retour au texte</button></div>
 </div>
-<div id="done" hidden><div class="card"><div class="big">⏰</div><h2>Temps écoulé !</h2><p class="sub" style="margin-bottom:6px">Bravo pour cet exercice 💪</p><button class="btn pri wide" id="doneOk">OK</button></div></div>
+<div id="done" hidden><div class="card"><div class="big">⏰</div><h2 data-en="Time's up!">Temps écoulé !</h2><p class="sub" style="margin-bottom:6px" data-en="Well done on this exercise 💪">Bravo pour cet exercice 💪</p><button class="btn pri wide" id="doneOk">OK</button></div></div>
 <div id="toast"></div>
  
 <script>
@@ -295,12 +310,25 @@ const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
 const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
 const store={
   get(k,d){try{const v=localStorage.getItem('fp_'+k);return v==null?d:JSON.parse(v)}catch(e){return d}},
-  set(k,v){try{localStorage.setItem('fp_'+k,JSON.stringify(v));return true}catch(e){toast('⚠️ Mémoire du téléphone pleine');return false}},
+  set(k,v){try{localStorage.setItem('fp_'+k,JSON.stringify(v));return true}catch(e){toast(L('⚠️ Mémoire du téléphone pleine','⚠️ Phone storage is full'));return false}},
   del(k){localStorage.removeItem('fp_'+k)}
 };
+let mode=store.get('mode','fr');
+const L=(fr,en)=>mode==='en'?en:fr;
 function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('on'),2300)}
-async function copyText(t){try{await navigator.clipboard.writeText(t)}catch(e){const ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove()}toast('Copié ✓')}
+async function copyText(t){try{await navigator.clipboard.writeText(t)}catch(e){const ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove()}toast(L('Copié ✓','Copied ✓'))}
 function download(name,text,type='text/plain'){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type:type+';charset=utf-8'}));a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500)}
+ 
+/* ================= LANGUE DE L'APPLI (FR / EN) ================= */
+function applyLang(){
+  document.documentElement.lang=mode;document.body.classList.toggle('en',mode==='en');
+  document.title=L('Français Pro','Pro English');
+  $$('[data-en]').forEach(el=>{if(el.dataset.fr==null)el.dataset.fr=el.innerHTML;el.innerHTML=mode==='en'?el.dataset.en:el.dataset.fr});
+  $$('[data-en-ph]').forEach(el=>{if(el.dataset.frPh==null)el.dataset.frPh=el.placeholder;el.placeholder=mode==='en'?el.dataset.enPh:el.dataset.frPh});
+  $$('[data-mode]').forEach(b=>b.classList.toggle('on',b.dataset.mode===mode));
+}
+function setMode(m){mode=m;store.set('mode',m);applyLang();toast(m==='en'?'🇬🇧 English mode':'🇫🇷 Mode français');route()}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-mode]');if(b&&b.dataset.mode!==mode)setMode(b.dataset.mode)});
  
 /* ================= TRADUCTION ================= */
 function detectLang(t){
@@ -346,6 +374,18 @@ async function translate(text,sl,tl){
   }
   return out.join('');
 }
+/* traduit une liste de mots courts en peu de requêtes (une ligne = un mot) */
+async function translateList(items,sl,tl){
+  const out=new Array(items.length).fill('');let batch=[],idx=[],len=0;
+  const flush=async()=>{
+    if(!batch.length)return;let res=null;
+    try{const parts=(await gtx(batch.join('\n'),sl,tl)).split('\n').map(s=>s.trim());if(parts.length===batch.length)res=parts}catch(e){}
+    if(!res){res=[];for(const b of batch){try{res.push((await translate(b,sl,tl)).trim())}catch(e){res.push('')}}}
+    idx.forEach((k,j)=>out[k]=res[j]||'');batch=[];idx=[];len=0;
+  };
+  for(let i=0;i<items.length;i++){const s=items[i];if(len+s.length>1200)await flush();batch.push(s);idx.push(i);len+=s.length+1}
+  await flush();return out;
+}
  
 /* ================= DOCUMENTS (JEU 1) ================= */
 const CHUNK=500;
@@ -367,21 +407,21 @@ const Docs={
   put(d){const l=this.all(),i=l.findIndex(x=>x.id===d.id);if(i>=0)l[i]=d;else l.unshift(d);return store.set('docs',l)},
   del(id){const d=this.get(id);if(d)d.chunks.forEach((_,i)=>store.del('tr_'+id+'_'+i));store.set('docs',this.all().filter(x=>x.id!==id))}
 };
-const LANGS={fr:'🇫🇷 Français',en:'🇬🇧 Anglais',ar:'🇱🇧 Arabe'};
+const LANGS=()=>({fr:L('🇫🇷 Français','🇫🇷 French'),en:L('🇬🇧 Anglais','🇬🇧 English'),ar:L('🇱🇧 Arabe','🇱🇧 Arabic')});
 function addDoc(title,text){
   text=(text||'').trim();
-  if(text.split(/\s+/).length<5){toast('Texte trop court ou illisible');return}
+  if(text.split(/\s+/).length<5){toast(L('Texte trop court ou illisible','Text too short or unreadable'));return}
   const d={id:uid(),title:(title||'').trim()||text.slice(0,42).replace(/\s+/g,' ')+'…',lang:detectLang(text.slice(0,6000)),chunks:chunkText(text),pos:0,words:text.split(/\s+/).length,notes:[],created:Date.now()};
-  if(Docs.put(d)){toast('Document ajouté ✓');location.hash='read/'+d.id}
+  if(Docs.put(d)){toast(L('Document ajouté ✓','Document added ✓'));location.hash='read/'+d.id}
 }
 function renderDocs(){
   const l=Docs.all(),box=$('#docList');
-  if(!l.length){box.innerHTML='<div class="empty"><div class="big">📚</div><p class="sub">Aucun document pour l\'instant.<br>Ajoute un PDF ou colle un texte au-dessus.</p></div>';return}
+  if(!l.length){box.innerHTML=`<div class="empty"><div class="big">📚</div><p class="sub">${L("Aucun document pour l'instant.<br>Ajoute un PDF ou colle un texte au-dessus.","No documents yet.<br>Add a PDF or paste a text above.")}</p></div>`;return}
   box.innerHTML=l.map(d=>{const n=d.chunks.length,done=d.done?n:d.pos;return `<div class="docitem"><a href="#read/${d.id}"><div class="ell" style="font-size:15.5px">${esc(d.title)}</div>
-    <div class="sub">${LANGS[d.lang]||''} · ${d.words} mots · ${d.done?'✅ Terminé':'Passage '+(d.pos+1)+'/'+n}</div><div class="pbar"><i style="width:${done/n*100}%"></i></div></a>
+    <div class="sub">${LANGS()[d.lang]||''} · ${d.words} ${L('mots','words')} · ${d.done?L('✅ Terminé','✅ Finished'):L('Passage','Part')+' '+(d.pos+1)+'/'+n}</div><div class="pbar"><i style="width:${done/n*100}%"></i></div></a>
     <button class="x" data-del="${d.id}" aria-label="Supprimer">🗑</button></div>`}).join('');
 }
-$('#docList').addEventListener('click',e=>{const id=e.target.closest('[data-del]')?.dataset.del;if(id&&confirm('Supprimer ce document ?')){Docs.del(id);renderDocs()}});
+$('#docList').addEventListener('click',e=>{const id=e.target.closest('[data-del]')?.dataset.del;if(id&&confirm(L('Supprimer ce document ?','Delete this document?'))){Docs.del(id);renderDocs()}});
 $('#addSeg').addEventListener('click',e=>{const m=e.target.closest('button')?.dataset.m;if(!m)return;$$('#addSeg button').forEach(b=>b.classList.toggle('on',b.dataset.m===m));$('#addPdf').hidden=m!=='pdf';$('#addTxt').hidden=m!=='txt'});
 $('#txtAdd').onclick=()=>{addDoc($('#txtTitle').value,$('#txtBody').value);$('#txtTitle').value='';$('#txtBody').value=''};
  
@@ -394,7 +434,7 @@ async function readPdf(file,status){
   await loadPdfLib();
   const pdf=await pdfjsLib.getDocument({data:await file.arrayBuffer()}).promise;let out='';
   for(let p=1;p<=pdf.numPages;p++){
-    status(`Lecture page ${p} / ${pdf.numPages}…`);
+    status(L('Lecture page ','Reading page ')+p+' / '+pdf.numPages+'…');
     const tc=await (await pdf.getPage(p)).getTextContent();
     out+=tc.items.map(it=>it.str+(it.hasEOL?'\n':'')).join('')+'\n\n';
   }
@@ -403,11 +443,11 @@ async function readPdf(file,status){
 $('#fileIn').addEventListener('change',async e=>{
   const f=e.target.files[0];if(!f)return;const st=$('#pdfStatus'),say=m=>st.textContent=m;
   try{
-    say('Lecture du fichier…');
+    say(L('Lecture du fichier…','Reading the file…'));
     const text=/pdf$/i.test(f.name)||f.type==='application/pdf'?await readPdf(f,say):await f.text();
-    if(text.trim().split(/\s+/).length<5){say('⚠️ Aucun texte trouvé (PDF scanné en image ?). Essaie de copier-coller le texte.');return}
+    if(text.trim().split(/\s+/).length<5){say(L('⚠️ Aucun texte trouvé (PDF scanné en image ?). Essaie de copier-coller le texte.','⚠️ No text found (scanned PDF?). Try copy-pasting the text.'));return}
     say('');addDoc(f.name.replace(/\.(pdf|txt)$/i,''),text);
-  }catch(err){say('⚠️ Impossible de lire ce fichier. Vérifie ta connexion ou colle le texte.')}
+  }catch(err){say(L('⚠️ Impossible de lire ce fichier. Vérifie ta connexion ou colle le texte.','⚠️ Could not read this file. Check your connection or paste the text.'))}
   e.target.value='';
 });
  
@@ -422,11 +462,11 @@ function openDoc(id){cur=Docs.get(id);if(!cur){location.hash='read';return}rende
 function renderReader(){
   const d=cur,n=d.chunks.length,i=d.pos;
   $('#docTitle').textContent=d.title;
-  $('#docProg').textContent=`Passage ${i+1} / ${n} · ~${CHUNK} mots`;
+  $('#docProg').textContent=`${L('Passage','Part')} ${i+1} / ${n} · ~${CHUNK} ${L('mots','words')}`;
   $('#docBar').style.width=((i+1)/n*100)+'%';
   $('#docLang').value=d.lang;
   $('#btnPrev').disabled=i===0;
-  $('#btnNext').textContent=i===n-1?'Terminer 🎉':'Suivant ›';
+  $('#btnNext').textContent=i===n-1?L('Terminer 🎉','Finish 🎉'):L('Suivant ›','Next ›');
   $('#origWrap').hidden=d.lang==='ar';$('#origWrap').open=false;
   $('#origText').textContent=d.chunks[i];$('#origText').dir=d.lang==='ar'?'rtl':'ltr';
   renderNotes();loadChunk();
@@ -439,7 +479,7 @@ async function chunkAr(d,i){
 }
 async function loadChunk(){
   const d=cur,i=d.pos;
-  arText.innerHTML='<div class="skel"></div><div class="skel"></div><div class="skel"></div><div class="skel"></div><p class="sub center" dir="ltr">Traduction en arabe…</p>';
+  arText.innerHTML=`<div class="skel"></div><div class="skel"></div><div class="skel"></div><div class="skel"></div><p class="sub center" dir="ltr">${L('Traduction en arabe…','Translating into Arabic…')}</p>`;
   try{
     const t=await chunkAr(d,i);
     if(cur!==d||d.pos!==i)return;
@@ -447,13 +487,13 @@ async function loadChunk(){
     if(i+1<d.chunks.length)chunkAr(d,i+1).catch(()=>{}); // prépare le suivant
   }catch(e){
     if(cur!==d||d.pos!==i)return;
-    arText.innerHTML='<p class="err" dir="ltr" style="text-align:center">Traduction impossible pour le moment (connexion ?)</p><button class="btn wide" dir="ltr" id="retry">Réessayer</button>';
+    arText.innerHTML=`<p class="err" dir="ltr" style="text-align:center">${L('Traduction impossible pour le moment (connexion ?)','Translation unavailable right now (connection?)')}</p><button class="btn wide" dir="ltr" id="retry">${L('Réessayer','Retry')}</button>`;
     $('#retry').onclick=loadChunk;
   }
 }
 function go(delta){
   const d=cur,n=d.chunks.length;
-  if(delta>0&&d.pos===n-1){d.done=true;Docs.put(d);toast('🎉 Document terminé, bravo !');location.hash='read';return}
+  if(delta>0&&d.pos===n-1){d.done=true;Docs.put(d);toast(L('🎉 Document terminé, bravo !','🎉 Document finished, well done!'));location.hash='read';return}
   d.pos=Math.min(n-1,Math.max(0,d.pos+delta));Docs.put(d);window.scrollTo({top:0,behavior:'smooth'});renderReader();
 }
 $('#btnPrev').onclick=()=>go(-1);
@@ -463,7 +503,7 @@ function renderNotes(){
   const l=cur.notes||[];
   $('#noteCnt').textContent=l.length?`(${l.length})`:'';
   $('#notes').innerHTML=l.length?l.slice().reverse().map((x,k)=>`<div class="note"><div><div class="ar">${esc(x.s)}</div><div class="tr">${x.l==='en'?'🇬🇧':'🇫🇷'} ${esc(x.t)}</div></div><button class="x" data-n="${l.length-1-k}">✕</button></div>`).join('')
-    :'<p class="sub">Les traductions que tu gardes ⭐ apparaissent ici pour les réviser.</p>';
+    :`<p class="sub">${L('Les traductions que tu gardes ⭐ apparaissent ici pour les réviser.','Translations you keep ⭐ show up here so you can review them.')}</p>`;
 }
 $('#notes').addEventListener('click',e=>{const n=e.target.closest('[data-n]')?.dataset.n;if(n==null)return;cur.notes.splice(+n,1);Docs.put(cur);renderNotes()});
  
@@ -499,11 +539,11 @@ async function doSheet(){
   if(trCache.has(k)){shRes=trCache.get(k);res.textContent=shRes;return}
   res.innerHTML='<div class="skel"></div>';
   try{const t=await translate(src,'ar',tl);trCache.set(k,t);if(src===shSrc&&tl===shLang){shRes=t;res.textContent=t}}
-  catch(e){res.innerHTML='<span class="err">Traduction indisponible (connexion ?)</span>'}
+  catch(e){res.innerHTML=`<span class="err">${L('Traduction indisponible (connexion ?)','Translation unavailable (connection?)')}</span>`}
 }
 $('#shSeg').addEventListener('click',e=>{const l=e.target.closest('button')?.dataset.l;if(l){shLang=l;doSheet()}});
 $('#sheetBg').onclick=closeSheet;$('#shClose').onclick=closeSheet;
-$('#shKeep').onclick=()=>{if(!shRes||!cur)return;cur.notes=cur.notes||[];if(!cur.notes.some(n=>n.s===shSrc&&n.l===shLang)){cur.notes.push({s:shSrc,t:shRes,l:shLang});Docs.put(cur);renderNotes()}toast('⭐ Ajouté au carnet');closeSheet()};
+$('#shKeep').onclick=()=>{if(!shRes||!cur)return;cur.notes=cur.notes||[];if(!cur.notes.some(n=>n.s===shSrc&&n.l===shLang)){cur.notes.push({s:shSrc,t:shRes,l:shLang});Docs.put(cur);renderNotes()}toast(L('⭐ Ajouté au carnet','⭐ Added to your notebook'));closeSheet()};
  
 /* ================= JEUX 2 & 3 : SYNONYMES / ANTONYMES ================= */
 const SEED_SYN=[
@@ -557,13 +597,13 @@ const SEED_ANT=[
 const norm=s=>String(s).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[\u0600-\u06FF\u0750-\u077F]+/g,' ').replace(/[’`]/g,"'").replace(/[^a-z0-9' ]+/g,' ').replace(/\s+/g,' ').trim();
 function lev(a,b){if(Math.abs(a.length-b.length)>2)return 9;let p=Array.from({length:b.length+1},(_,i)=>i);for(let i=1;i<=a.length;i++){const c=[i];for(let j=1;j<=b.length;j++)c[j]=Math.min(p[j]+1,c[j-1]+1,p[j-1]+(a[i-1]===b[j-1]?0:1));p=c}return p[b.length]}
 function checkAnswer(resp,answers){
-  const parts=resp.split(/[,;\/\n]|\s+et\s+|\s+ou\s+/i).map(norm).filter(Boolean);
+  const parts=resp.split(/[,;\/\n]|\s+et\s+|\s+ou\s+|\s+and\s+|\s+or\s+/i).map(norm).filter(Boolean);
   const matched=[],typos=[];
   answers.forEach((a,i)=>{const na=norm(a);if(!na)return;
     for(const p of parts){
       if(p===na||(na.length>=3&&(' '+p+' ').includes(' '+na+' '))||(p.length>=4&&(' '+na+' ').includes(' '+p+' '))){matched.push(i);break}
       const tol=na.length>=8?2:na.length>=5?1:0;
-      const core=x=>x.replace(/^(se |s'|l'|le |la |les |d')/,''),cp=core(p),ca=core(na);
+      const core=x=>x.replace(/^(se |s'|l'|le |la |les |d'|to |the |a |an )/,''),cp=core(p),ca=core(na);
       if(tol&&(lev(p,na)<=tol||(ca.length>=5&&lev(cp,ca)<=tol))){matched.push(i);typos.push(a);break}
     }});
   return{ok:matched.length>0,full:matched.length>=Math.min(2,answers.length),matched,typos};
@@ -577,28 +617,97 @@ function parsePy(code){
     const w=un(m[2]).trim();if(w&&vals.length)out.push({w,a:vals})}
   return out;
 }
+/* nettoie un mot avant traduction (retire les notes en arabe) */
+const cleanFr=s=>s.replace(/\s*\([^)]*\)/g,m=>/[\u0600-\u06FF]/.test(m)?'':m).replace(/[\u0600-\u06FF]+/g,'').replace(/\s+/g,' ').trim();
+const cap=s=>s?s.charAt(0).toUpperCase()+s.slice(1):s;
+const low=s=>s&&s!==s.toUpperCase()?s.charAt(0).toLowerCase()+s.slice(1):s;
  
 function Quiz(kind){
-  const K={syn:{label:'synonymes',title:'Synonymes',icon:'🔁',py:'verbes',seed:SEED_SYN},
-           ant:{label:'antonymes',title:'Antonymes',icon:'⇄',py:'antonymes',seed:SEED_ANT}}[kind];
-  const root=$('#v-'+kind);let tab='play',last=null,editing=null;
-  root.innerHTML=`<div class="vh"><div class="ico">${K.icon}</div><div><h1>${K.title}</h1><p class="sub">Donne deux ${K.label} pour chaque mot</p></div></div>
-    <div class="seg tabs"><button data-tab="play">🎯 Jouer</button><button data-tab="list">📝 Mes mots</button><button data-tab="code">🐍 Code</button></div><div class="body"></div>`;
+  const K={syn:{fr:'synonymes',en:'synonyms',tfr:'Synonymes',ten:'Synonyms',icon:'🔁',pyfr:'verbes',pyen:'synonyms',seed:SEED_SYN},
+           ant:{fr:'antonymes',en:'antonyms',tfr:'Antonymes',ten:'Antonyms',icon:'⇄',pyfr:'antonymes',pyen:'antonyms',seed:SEED_ANT}}[kind];
+  const lbl=()=>L(K.fr,K.en);
+  const root=$('#v-'+kind);let tab='play',last=null,editing=null,syncing=null;
+ 
+  /* --- liste française = la source --- */
   const words=()=>{let w=store.get('words_'+kind,null);if(!w){w=K.seed.map(([w,a])=>({w,a}));store.set('words_'+kind,w)}return w};
   const saveWords=w=>store.set('words_'+kind,w);
+  /* --- version anglaise : générée depuis le français, corrigeable --- */
+  const enS=()=>store.get('en_'+kind,{});
+  const saveEn=S=>store.set('en_'+kind,S);
+  const sig=e=>JSON.stringify([e.w,e.a]);
+  const enNeeds=()=>{const S=enS();return words().filter(e=>{const x=S[e.w];return!x||(!x.manual&&x.sig!==sig(e))})};
+  function enList(all){
+    const S=enS(),ids=words().map(e=>e.w).filter(id=>S[id]).concat(Object.keys(S).filter(id=>S[id].own));
+    return ids.map(id=>({id,...S[id]})).filter(e=>all||!e.hidden);
+  }
+  function syncEn(onProg){
+    if(syncing)return syncing;
+    syncing=(async()=>{
+      const S=enS(),fr=new Set(words().map(e=>e.w));
+      Object.keys(S).forEach(id=>{if(!S[id].own&&!fr.has(id))delete S[id]});
+      const need=enNeeds();let done=0;
+      for(let i=0;i<need.length;i+=20){
+        const grp=need.slice(i,i+20),items=[];
+        grp.forEach(e=>{items.push(cleanFr(e.w));e.a.forEach(a=>items.push(cleanFr(a)))});
+        const tr=await translateList(items,'fr','en');
+        if(tr.every(x=>!x))throw new Error('offline');
+        let k=0;
+        grp.forEach(e=>{
+          const w=tr[k++],aa=e.a.map(()=>tr[k++]);
+          const seen=new Set([norm(w)]),a=[];
+          aa.forEach(x=>{const n=norm(x);if(n&&!seen.has(n)){seen.add(n);a.push(low(x))}});
+          S[e.w]={w:cap(w||cleanFr(e.w)),a,sig:sig(e),hidden:S[e.w]?.hidden||false};
+        });
+        done+=grp.length;saveEn(S);onProg&&onProg(done,need.length);
+      }
+      saveEn(S);
+    })().finally(()=>{syncing=null});
+    return syncing;
+  }
+  /* --- liste active selon la langue --- */
+  const list=()=>mode==='en'?enList().filter(e=>e.a.length):words().map(e=>({id:e.w,w:e.w,a:e.a}));
+  const dk=()=>(mode==='en'?'deck_en_':'deck_')+kind;
   function deck(){
-    const W=words().map(e=>e.w),set=new Set(W);
-    let d=store.get('deck_'+kind,null)||{order:shuffle(W),pos:0,ok:0,done:0,round:1};
+    const ids=list().map(e=>e.id),set=new Set(ids);
+    let d=store.get(dk(),null)||{order:shuffle(ids),pos:0,ok:0,done:0,round:1};
     const seen=d.order.slice(0,d.pos).filter(w=>set.has(w)),rest=d.order.slice(d.pos).filter(w=>set.has(w));
     const inD=new Set(d.order);
-    W.filter(w=>!inD.has(w)).forEach(w=>rest.splice(Math.random()*(rest.length+1)|0,0,w));
-    d.order=seen.concat(rest);d.pos=seen.length;store.set('deck_'+kind,d);return d;
+    ids.filter(w=>!inD.has(w)).forEach(w=>rest.splice(Math.random()*(rest.length+1)|0,0,w));
+    d.order=seen.concat(rest);d.pos=seen.length;store.set(dk(),d);return d;
   }
-  function restart(){const d=deck();store.set('deck_'+kind,{order:shuffle(words().map(e=>e.w)),pos:0,ok:0,done:0,round:(d.round||1)+1});last=null;render()}
-  function toPy(){const W=words(),v=K.py,q=s=>JSON.stringify(s);
+  function restart(){const d=deck();store.set(dk(),{order:shuffle(list().map(e=>e.id)),pos:0,ok:0,done:0,round:(d.round||1)+1});last=null;render()}
+ 
+  function toPy(){
+    const q=s=>JSON.stringify(s);
+    if(mode==='en'){const v=K.pyen,W=enList().filter(e=>e.a.length);
+      return `import random
+ 
+# English ${K.en} game — exported from Français Pro
+${v} = {
+${W.map(e=>`    ${q(e.w)}: [${e.a.map(q).join(', ')}],`).join('\n')}
+}
+ 
+questions = random.sample(list(${v}.keys()), min(10, len(${v})))
+score = 0
+ 
+print("🎯 Welcome to the professional vocabulary game!")
+print("Give two ${K.en} for each word.\\n")
+ 
+for word in questions:
+    answers = ${v}[word]
+    answer = input(f"Give two ${K.en} for '{word}': ").strip().lower()
+    if any(a.lower() in answer for a in answers):
+        print("✅ Correct!\\n")
+        score += 1
+    else:
+        print(f"❌ Wrong. The correct answers were: {', '.join(answers)}\\n")
+ 
+print(f"🎉 Game over! Your final score: {score}/{len(questions)}.")
+`}
+    const W=words(),v=K.pyfr;
     return `import random
  
-# Jeu des ${K.label} — exporté depuis Français Pro
+# Jeu des ${K.fr} — exporté depuis Français Pro
 ${v} = {
 ${W.map(e=>`    ${q(e.w)}: [${e.a.map(q).join(', ')}],`).join('\n')}
 }
@@ -607,11 +716,11 @@ questions = random.sample(list(${v}.keys()), min(10, len(${v})))
 score = 0
  
 print("🎯 Bienvenue dans le jeu du vocabulaire professionnel !")
-print("Tu vas devoir donner deux ${K.label} pour chaque mot.\\n")
+print("Tu vas devoir donner deux ${K.fr} pour chaque mot.\\n")
  
 for mot in questions:
     reponses = ${v}[mot]
-    reponse = input(f"Donne deux ${K.label} pour '{mot}' : ").strip().lower()
+    reponse = input(f"Donne deux ${K.fr} pour '{mot}' : ").strip().lower()
     if any(r.lower() in reponse for r in reponses):
         print("✅ Vrai, bonne réponse !\\n")
         score += 1
@@ -620,89 +729,126 @@ for mot in questions:
  
 print(f"🎉 Jeu terminé ! Ton score final est : {score}/{len(questions)}.")
 `}
-  function render(){
+ 
+  async function render(skipSync){
+    root.innerHTML=`<div class="vh"><div class="ico">${K.icon}</div><div><h1>${L(K.tfr,K.ten)}</h1><p class="sub">${L('Donne deux '+K.fr+' pour chaque mot','Give two '+K.en+' for each word')}</p></div>
+      <div class="lsw"><button data-mode="fr">🇫🇷</button><button data-mode="en">🇬🇧</button></div></div>
+      <div class="seg tabs"><button data-tab="play">${L('🎯 Jouer','🎯 Play')}</button><button data-tab="list">${L('📝 Mes mots','📝 My words')}</button><button data-tab="code">🐍 Code</button></div><div class="body"></div>`;
+    $$('[data-mode]',root).forEach(b=>b.classList.toggle('on',b.dataset.mode===mode));
     $$('.tabs button',root).forEach(b=>b.classList.toggle('on',b.dataset.tab===tab));
     const b=$('.body',root);
+    if(mode==='en'&&!skipSync&&enNeeds().length){
+      const n=enNeeds().length;
+      b.innerHTML=`<div class="card empty"><div class="big">🌍</div><h2>Preparing the English version…</h2><p class="sub" id="enProg_${kind}">0 / ${n} ${K.en}</p><div class="pbar" style="margin-top:14px"><i id="enBar_${kind}"></i></div>
+        <p class="sub" style="margin-top:14px">Your French list is being translated automatically. This only happens once per new word.</p></div>`;
+      try{await syncEn((d,t)=>{const p=$('#enProg_'+kind),bar=$('#enBar_'+kind);if(p)p.textContent=`${d} / ${t} ${K.en}`;if(bar)bar.style.width=d/t*100+'%'})}
+      catch(e){if(mode!=='en')return;b.innerHTML=`<div class="card empty"><div class="big">📡</div><h2>No connection</h2><p class="sub">The English version needs internet the first time.</p><button class="btn pri wide" data-act="retry">Retry</button></div>`;return}
+      if(mode==='en'&&root.classList.contains('on'))render(true);
+      return;
+    }
     if(tab==='play')renderPlay(b);else if(tab==='list')renderList(b);else renderCode(b);
   }
   function renderPlay(b){
     const d=deck(),n=d.order.length;
-    if(!n){b.innerHTML=`<div class="card empty"><div class="big">🗂️</div><p class="sub">Ta liste est vide.</p><button class="btn pri wide" data-act="tolist">Ajouter des mots</button></div>`;return}
+    if(!n){b.innerHTML=`<div class="card empty"><div class="big">🗂️</div><p class="sub">${L('Ta liste est vide.','Your list is empty.')}</p><button class="btn pri wide" data-act="tolist">${L('Ajouter des mots','Add words')}</button></div>`;return}
     const shown=last?d.pos:Math.min(d.pos+1,n);
-    const stats=`<div class="stats"><span class="pill c">Tour ${d.round}</span><span class="pill">${shown} / ${n}</span><span class="pill">✅ ${d.ok} / ${d.done}</span></div><div class="pbar" style="margin-top:12px"><i style="width:${shown/n*100}%"></i></div>`;
-    if(last){const L=last;
-      b.innerHTML=stats+`<div class="card fb center ${L.ok?'good':'bad'}"><div class="fbh">${L.full?'🎉 Parfait !':L.ok?'✅ Bonne réponse !':'❌ Pas cette fois'}</div>
-        <div class="qword sm">${esc(L.w)}</div>${L.resp?`<div class="you">Ta réponse : ${esc(L.resp)}</div>`:''}
-        <div class="qlabel" style="margin-bottom:10px">${L.ok?'Réponses possibles':'Les bonnes réponses'}</div>
-        <div class="chips">${L.answers.map((a,i)=>`<span class="chip ${L.matched.includes(i)?'hit':''}">${esc(a)}</span>`).join('')}</div>
-        ${L.typos.length?`<p class="sub" style="margin-top:12px">✍️ Attention à l'orthographe : <b>${L.typos.map(esc).join(', ')}</b></p>`:''}
-        <button class="btn pri wide" data-act="next">${d.pos>=n?'Voir le bilan':'Suivant ›'}</button></div>`;
+    const stats=`<div class="stats"><span class="pill c">${L('Tour','Round')} ${d.round}</span><span class="pill">${shown} / ${n}</span><span class="pill">✅ ${d.ok} / ${d.done}</span></div><div class="pbar" style="margin-top:12px"><i style="width:${shown/n*100}%"></i></div>`;
+    if(last){const Lr=last;
+      b.innerHTML=stats+`<div class="card fb center ${Lr.ok?'good':'bad'}"><div class="fbh">${Lr.full?L('🎉 Parfait !','🎉 Perfect!'):Lr.ok?L('✅ Bonne réponse !','✅ Correct!'):L('❌ Pas cette fois','❌ Not this time')}</div>
+        <div class="qword sm">${esc(Lr.w)}</div>${Lr.resp?`<div class="you">${L('Ta réponse :','Your answer:')} ${esc(Lr.resp)}</div>`:''}
+        <div class="qlabel" style="margin-bottom:10px">${Lr.ok?L('Réponses possibles','Possible answers'):L('Les bonnes réponses','The right answers')}</div>
+        <div class="chips">${Lr.answers.map((a,i)=>`<span class="chip ${Lr.matched.includes(i)?'hit':''}">${esc(a)}</span>`).join('')}</div>
+        ${Lr.typos.length?`<p class="sub" style="margin-top:12px">${L("✍️ Attention à l'orthographe :",'✍️ Watch the spelling:')} <b>${Lr.typos.map(esc).join(', ')}</b></p>`:''}
+        <button class="btn pri wide" data-act="next">${d.pos>=n?L('Voir le bilan','See results'):L('Suivant ›','Next ›')}</button></div>`;
       $('[data-act=next]',b).focus();return}
     if(d.pos>=n){
       const pct=d.done?Math.round(d.ok/d.done*100):0;
-      b.innerHTML=stats+`<div class="card empty"><div class="big">${pct>=80?'🏆':pct>=50?'👏':'💪'}</div><h2>Tour ${d.round} terminé !</h2>
-        <p class="sub">Tu as vu tous les mots. Score : <b>${d.ok} / ${d.done}</b> (${pct} %)</p><button class="btn pri wide" data-act="restart">Recommencer un tour</button></div>`;return}
-    const w=d.order[d.pos];
-    b.innerHTML=stats+`<div class="card qcard"><div class="qlabel">Donne deux ${K.label} pour</div><div class="qword">${esc(w)}</div>
-      <input class="inp" id="ans" placeholder="ex : mot 1, mot 2" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" enterkeyhint="done">
-      <div class="row"><button class="btn ghost" data-act="skip">Je ne sais pas</button><button class="btn pri" data-act="check">Valider</button></div></div>
-      <button class="btn ghost sm" data-act="restart" style="display:block;margin:4px auto 0">↻ Remélanger et recommencer</button>`;
+      b.innerHTML=stats+`<div class="card empty"><div class="big">${pct>=80?'🏆':pct>=50?'👏':'💪'}</div><h2>${L('Tour','Round')} ${d.round} ${L('terminé !','complete!')}</h2>
+        <p class="sub">${L('Tu as vu tous les mots. Score :','You went through every word. Score:')} <b>${d.ok} / ${d.done}</b> (${pct} %)</p><button class="btn pri wide" data-act="restart">${L('Recommencer un tour','Start a new round')}</button></div>`;return}
+    const e=list().find(x=>x.id===d.order[d.pos]);
+    b.innerHTML=stats+`<div class="card qcard"><div class="qlabel">${L('Donne deux '+K.fr+' pour','Give two '+K.en+' for')}</div><div class="qword">${esc(e?e.w:'')}</div>
+      <input class="inp" id="ans" placeholder="${L('ex : mot 1, mot 2','e.g. word 1, word 2')}" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" enterkeyhint="done">
+      <div class="row"><button class="btn ghost" data-act="skip">${L('Je ne sais pas',"I don't know")}</button><button class="btn pri" data-act="check">${L('Valider','Check')}</button></div></div>
+      <button class="btn ghost sm" data-act="restart" style="display:block;margin:4px auto 0">${L('↻ Remélanger et recommencer','↻ Shuffle and start over')}</button>`;
   }
   function doCheck(skip){
-    const d=deck(),w=d.order[d.pos],e=words().find(x=>x.w===w);if(!e)return render();
+    const d=deck(),id=d.order[d.pos],e=list().find(x=>x.id===id);if(!e)return render();
     const resp=skip?'':($('#ans',root)?.value||'');
-    if(!skip&&!resp.trim()){toast('Écris au moins un mot');return}
+    if(!skip&&!resp.trim()){toast(L('Écris au moins un mot','Type at least one word'));return}
     const r=checkAnswer(resp,e.a);
-    d.pos++;d.done++;if(r.ok)d.ok++;store.set('deck_'+kind,d);
+    d.pos++;d.done++;if(r.ok)d.ok++;store.set(dk(),d);
     if(navigator.vibrate)navigator.vibrate(r.ok?30:[40,60,40]);
-    last={w,resp,answers:e.a,...r};render();
+    last={w:e.w,resp,answers:e.a,...r};render(true);
   }
   function renderList(b){
-    const W=words();const ed=editing!=null?W.find(e=>e.w===editing):null;
-    b.innerHTML=`<div class="card"><h3>${ed?'✏️ Modifier':'➕ Ajouter un mot'}</h3>
-      <input class="inp" id="nw" placeholder="Mot ou expression" value="${ed?esc(ed.w):''}">
-      <input class="inp" id="na" placeholder="${K.label} séparés par des virgules" value="${ed?esc(ed.a.join(', ')):''}">
-      <div class="row">${ed?'<button class="btn ghost" data-act="cancel">Annuler</button>':''}<button class="btn pri" data-act="add">${ed?'Enregistrer':'Ajouter'}</button></div></div>
-      <input class="inp" id="flt" placeholder="🔍 Rechercher dans mes ${W.length} mots…">
-      <div class="card" id="wl">${W.map(e=>`<div class="wi"><div><b>${esc(e.w)}</b><span>${esc(e.a.join(', '))}</span></div>
-        <button class="ib" data-act="edit" data-w="${esc(e.w)}">✏️</button><button class="ib" data-act="del" data-w="${esc(e.w)}">🗑</button></div>`).join('')||'<p class="sub">Aucun mot.</p>'}</div>`;
+    const en=mode==='en',W=en?enList(true):words().map(e=>({id:e.w,w:e.w,a:e.a}));
+    const ed=editing!=null?W.find(e=>e.id===editing):null;
+    b.innerHTML=(en?`<div class="info">🌍 This English list is <b>generated automatically</b> from your French list: add your words in 🇫🇷 and they appear here. You can fix a translation ✏️ or add English words directly.</div>`:'')+
+      `<div class="card"><h3>${ed?L('✏️ Modifier','✏️ Edit'):L('➕ Ajouter un mot','➕ Add a word')}</h3>
+      <input class="inp" id="nw" placeholder="${L('Mot ou expression','Word or phrase')}" value="${ed?esc(ed.w):''}">
+      <input class="inp" id="na" placeholder="${L(K.fr+' séparés par des virgules',K.en+' separated by commas')}" value="${ed?esc(ed.a.join(', ')):''}">
+      <div class="row">${ed?`<button class="btn ghost" data-act="cancel">${L('Annuler','Cancel')}</button>`:''}<button class="btn pri" data-act="add">${ed?L('Enregistrer','Save'):L('Ajouter','Add')}</button></div></div>
+      <input class="inp" id="flt" placeholder="🔍 ${L('Rechercher dans mes '+W.length+' mots…','Search my '+W.length+' words…')}">
+      <div class="card" id="wl">${W.map(e=>`<div class="wi" ${e.hidden?'style="opacity:.45"':''}><div><b>${esc(e.w)}</b><span>${e.a.length?esc(e.a.join(', ')):'— no answer, tap ✏️'}</span>${en?`<small>${e.own?'🇬🇧 added in English':e.hidden?'hidden · tap 👁 to show again':'🇫🇷 '+esc(cleanFr(e.id))+(e.manual?' · ✏️ corrected':'')}</small>`:''}</div>
+        <button class="ib" data-act="edit" data-w="${esc(e.id)}">✏️</button><button class="ib" data-act="${e.hidden?'unhide':'del'}" data-w="${esc(e.id)}">${e.hidden?'👁':'🗑'}</button></div>`).join('')||`<p class="sub">${L('Aucun mot.','No words.')}</p>`}</div>
+      ${en?'<button class="btn ghost sm" data-act="retrans" style="display:block;margin:0 auto">↻ Re-translate everything from French</button>':''}`;
     $('#flt',b).oninput=ev=>{const q=norm(ev.target.value);$$('.wi',b).forEach(x=>x.hidden=q&&!norm(x.textContent).includes(q))};
     if(ed)$('#nw',b).focus();
   }
   function addWord(){
     const w=$('#nw',root).value.trim(),a=splitAns($('#na',root).value);
-    if(!w||!a.length){toast(`Écris le mot et au moins un ${K.label.slice(0,-1)}`);return}
+    if(!w||!a.length){toast(L('Écris le mot et au moins une réponse','Type the word and at least one answer'));return}
+    if(mode==='en'){
+      const S=enS();
+      if(editing!=null){if(S[editing])S[editing]={...S[editing],w,a,manual:true};editing=null;toast('Saved ✓')}
+      else{const ex=Object.keys(S).find(id=>norm(S[id].w)===norm(w));
+        if(ex){a.forEach(x=>{if(!S[ex].a.some(y=>norm(y)===norm(x)))S[ex].a.push(x)});S[ex].manual=true;S[ex].hidden=false;toast('Existing word: answers merged ✓')}
+        else{S['@'+w]={w,a,own:true,manual:true};toast('Added ✓')}}
+      saveEn(S);render(true);return;
+    }
     let W=words();
     if(editing!=null){const e=W.find(x=>x.w===editing);if(e){e.w=w;e.a=a}editing=null;toast('Modifié ✓')}
-    else{const e=W.find(x=>norm(x.w)===norm(w));if(e){a.forEach(x=>{if(!e.a.some(y=>norm(y)===norm(x)))e.a.push(x)});toast('Mot existant : réponses fusionnées ✓')}else{W.unshift({w,a});toast('Ajouté ✓')}}
+    else{const e=W.find(x=>norm(x.w)===norm(w));if(e){a.forEach(x=>{if(!e.a.some(y=>norm(y)===norm(x)))e.a.push(x)});toast('Mot existant : réponses fusionnées ✓')}else{W.unshift({w,a});toast('Ajouté ✓ (version anglaise automatique)')}}
     saveWords(W);render();
   }
+  function delWord(id){
+    if(!confirm(L(`Supprimer « ${id} » ?`,`Delete this word?`)))return;
+    if(mode==='en'){const S=enS();if(S[id]?.own)delete S[id];else if(S[id])S[id].hidden=true;saveEn(S);render(true);return}
+    saveWords(words().filter(x=>x.w!==id));render();
+  }
   function renderCode(b){
-    b.innerHTML=`<p class="sub" style="margin-bottom:12px">Ta liste sous forme de script Python (le même jeu que ton fichier). Copie-le pour le garder ailleurs, ou colle un code ici et importe-le.</p>
+    b.innerHTML=`<p class="sub" style="margin-bottom:12px">${L("Ta liste sous forme de script Python (le même jeu que ton fichier). Copie-le pour le garder ailleurs, ou colle un code ici et importe-le.","Your English list as a Python script (same game as your file). Copy it to keep it elsewhere, or paste code here and import it as English words.")}</p>
       <textarea class="code" id="code" spellcheck="false" autocapitalize="off">${esc(toPy())}</textarea>
-      <div class="row"><button class="btn pri" data-act="copy">📋 Copier</button><button class="btn" data-act="dl">⬇️ .py</button></div>
-      <div class="row"><button class="btn" data-act="merge">➕ Importer (ajouter)</button><button class="btn ghost" data-act="replace">♻️ Remplacer tout</button></div>`;
+      <div class="row"><button class="btn pri" data-act="copy">${L('📋 Copier','📋 Copy')}</button><button class="btn" data-act="dl">⬇️ .py</button></div>
+      <div class="row"><button class="btn" data-act="merge">${L('➕ Importer (ajouter)','➕ Import (add)')}</button>${mode==='en'?'':'<button class="btn ghost" data-act="replace">♻️ Remplacer tout</button>'}</div>`;
   }
   function importPy(replace){
-    const list=parsePy($('#code',root).value);
-    if(!list.length){toast('Aucun mot trouvé dans le code');return}
-    if(replace){if(!confirm(`Remplacer toute ta liste par ces ${list.length} mots ?`))return;saveWords(list);store.del('deck_'+kind)}
-    else{const W=words();let added=0;list.forEach(n=>{const e=W.find(x=>norm(x.w)===norm(n.w));if(e)n.a.forEach(x=>{if(!e.a.some(y=>norm(y)===norm(x)))e.a.push(x)});else{W.push(n);added++}});saveWords(W);toast(`${added} nouveau(x) mot(s) ajouté(s) ✓`)}
-    if(replace)toast(`${list.length} mots importés ✓`);
+    const parsed=parsePy($('#code',root).value);
+    if(!parsed.length){toast(L('Aucun mot trouvé dans le code','No words found in the code'));return}
+    if(mode==='en'){const S=enS();let added=0;
+      parsed.forEach(n=>{const ex=Object.keys(S).find(id=>norm(S[id].w)===norm(n.w));
+        if(ex)n.a.forEach(x=>{if(!S[ex].a.some(y=>norm(y)===norm(x)))S[ex].a.push(x)});else{S['@'+n.w]={w:n.w,a:n.a,own:true,manual:true};added++}});
+      saveEn(S);toast(`${added} new word(s) added ✓`);render(true);return}
+    if(replace){if(!confirm(`Remplacer toute ta liste par ces ${parsed.length} mots ?`))return;saveWords(parsed);store.del('deck_'+kind);toast(`${parsed.length} mots importés ✓`)}
+    else{const W=words();let added=0;parsed.forEach(n=>{const e=W.find(x=>norm(x.w)===norm(n.w));if(e)n.a.forEach(x=>{if(!e.a.some(y=>norm(y)===norm(x)))e.a.push(x)});else{W.push(n);added++}});saveWords(W);toast(`${added} nouveau(x) mot(s) ajouté(s) ✓`)}
     render();
   }
   root.addEventListener('click',e=>{
-    const t=e.target.closest('[data-tab]');if(t){tab=t.dataset.tab;editing=null;render();return}
+    const t=e.target.closest('[data-tab]');if(t){tab=t.dataset.tab;editing=null;last=null;render();return}
     const a=e.target.closest('[data-act]');if(!a)return;
-    ({check:()=>doCheck(false),skip:()=>doCheck(true),next:()=>{last=null;render();setTimeout(()=>$('#ans',root)?.focus(),50)},restart,
-      tolist:()=>{tab='list';render()},add:addWord,cancel:()=>{editing=null;render()},
-      edit:()=>{editing=a.dataset.w;render();window.scrollTo({top:0,behavior:'smooth'})},
-      del:()=>{if(confirm(`Supprimer « ${a.dataset.w} » ?`)){saveWords(words().filter(x=>x.w!==a.dataset.w));render()}},
-      copy:()=>copyText($('#code',root).value),dl:()=>download(kind==='syn'?'synonymes.py':'antonymes.py',$('#code',root).value),
+    ({check:()=>doCheck(false),skip:()=>doCheck(true),next:()=>{last=null;render(true);setTimeout(()=>$('#ans',root)?.focus(),50)},restart,
+      retry:()=>render(),tolist:()=>{tab='list';render()},add:addWord,cancel:()=>{editing=null;render(true)},
+      edit:()=>{editing=a.dataset.w;render(true);window.scrollTo({top:0,behavior:'smooth'})},
+      del:()=>delWord(a.dataset.w),
+      unhide:()=>{const S=enS();if(S[a.dataset.w])S[a.dataset.w].hidden=false;saveEn(S);render(true)},
+      retrans:()=>{if(!confirm('Re-translate all words from your French list? Your corrections will be lost (words added in English are kept).'))return;const S=enS();Object.keys(S).forEach(id=>{if(!S[id].own)delete S[id]});saveEn(S);render()},
+      copy:()=>copyText($('#code',root).value),
+      dl:()=>download((mode==='en'?K.en:K.fr)+'.py',$('#code',root).value),
       merge:()=>importPy(false),replace:()=>importPy(true)})[a.dataset.act]?.();
   });
   root.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.id==='ans'){e.preventDefault();doCheck(false)}else if(e.key==='Enter'&&(e.target.id==='nw'||e.target.id==='na')){e.preventDefault();addWord()}});
-  return{render:()=>{render()},stat:()=>{const d=deck();return `${d.order.length} mots · tour ${d.round} · ${Math.min(d.pos,d.order.length)}/${d.order.length}`}};
+  return{render:()=>{last=null;editing=null;render()},
+    stat:()=>{if(mode==='en'&&enNeeds().length)return `${words().length} words · English version ready on first open`;const d=deck();return `${d.order.length} ${L('mots','words')} · ${L('tour','round')} ${d.round} · ${Math.min(d.pos,d.order.length)}/${d.order.length}`}};
 }
 const Q={syn:Quiz('syn'),ant:Quiz('ant')};
  
@@ -717,8 +863,8 @@ function tDraw(){
   const l=tLeft(),running=!!tst.endAt,paused=!running&&tst.rem!=null;
   $('#tTime').textContent=fmt(l);
   $('#tPrg').style.strokeDashoffset=C*(1-l/tst.dur);
-  $('#tState').textContent=running?'En cours…':paused?'En pause':'Prêt';
-  $('#tGo').textContent=running?'⏸ Pause':paused?'▶ Reprendre':'▶ Démarrer';
+  $('#tState').textContent=running?L('En cours…','Running…'):paused?L('En pause','Paused'):L('Prêt','Ready');
+  $('#tGo').textContent=running?L('⏸ Pause','⏸ Pause'):paused?L('▶ Reprendre','▶ Resume'):L('▶ Démarrer','▶ Start');
   $('#tCard').classList.toggle('running',running||paused);
   if(document.activeElement!==$('#tMin'))$('#tMin').value=Math.round(tst.dur/60);
   $$('#tPre .chip').forEach(c=>c.classList.toggle('on',+c.dataset.m*60===tst.dur));
@@ -744,25 +890,25 @@ setInterval(()=>{
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&tst.endAt)wakeOn()});
  
 /* ================= SAUVEGARDE ================= */
-function exportData(){const data={};for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k.startsWith('fp_')&&!k.startsWith('fp_tr_'))data[k]=localStorage.getItem(k)}return JSON.stringify({app:'francais-pro',v:1,date:new Date().toISOString(),data})}
+function exportData(){const data={};for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k.startsWith('fp_')&&!k.startsWith('fp_tr_'))data[k]=localStorage.getItem(k)}return JSON.stringify({app:'francais-pro',v:2,date:new Date().toISOString(),data})}
 $('#bkCopy').onclick=()=>copyText(exportData());
 $('#bkDl').onclick=()=>download('francais-pro-sauvegarde-'+new Date().toISOString().slice(0,10)+'.json',exportData(),'application/json');
 $('#bkRestore').onclick=()=>{
   try{const o=JSON.parse($('#bkIn').value);if(o.app!=='francais-pro')throw 0;
-    if(!confirm('Remplacer les données actuelles par cette sauvegarde ?'))return;
+    if(!confirm(L('Remplacer les données actuelles par cette sauvegarde ?','Replace current data with this backup?')))return;
     Object.keys(localStorage).filter(k=>k.startsWith('fp_')).forEach(k=>localStorage.removeItem(k));
     Object.entries(o.data).forEach(([k,v])=>localStorage.setItem(k,v));
-    toast('Sauvegarde restaurée ✓');setTimeout(()=>location.reload(),700);
-  }catch(e){toast('⚠️ Sauvegarde invalide')}
+    toast(L('Sauvegarde restaurée ✓','Backup restored ✓'));setTimeout(()=>location.reload(),700);
+  }catch(e){toast(L('⚠️ Sauvegarde invalide','⚠️ Invalid backup'))}
 };
  
 /* ================= ACCUEIL & NAVIGATION ================= */
 function renderHome(){
-  const h=new Date().getHours();$('#hello').textContent=(h<5||h>=18?'Bonsoir':'Bonjour')+' 👋';
+  const h=new Date().getHours();$('#hello').textContent=(h<5||h>=18?L('Bonsoir','Good evening'):h<12?L('Bonjour','Good morning'):L('Bonjour','Good afternoon'))+' 👋';
   const D=Docs.all(),act=D.find(d=>!d.done);
-  $('#s1').textContent=D.length?`${D.length} document(s)${act?' · « '+act.title.slice(0,22)+(act.title.length>22?'…':'')+' » '+(act.pos+1)+'/'+act.chunks.length:''}`:'Ajoute ton premier document';
+  $('#s1').textContent=D.length?`${D.length} document(s)${act?' · « '+act.title.slice(0,22)+(act.title.length>22?'…':'')+' » '+(act.pos+1)+'/'+act.chunks.length:''}`:L('Ajoute ton premier document','Add your first document');
   $('#s2').textContent=Q.syn.stat();$('#s3').textContent=Q.ant.stat();
-  $('#s4').textContent=tst.endAt?'⏳ En cours : '+fmt(tLeft()):'Dernière durée : '+Math.round(tst.dur/60)+' min';
+  $('#s4').textContent=tst.endAt?L('⏳ En cours : ','⏳ Running: ')+fmt(tLeft()):L('Dernière durée : ','Last duration: ')+Math.round(tst.dur/60)+' min';
 }
 const NAV={home:'home',read:'read',doc:'read',syn:'syn',ant:'ant',timer:'timer',backup:'home'};
 function route(){
@@ -774,6 +920,7 @@ function route(){
   ({home:renderHome,read:renderDocs,doc:()=>openDoc(arg),syn:Q.syn.render,ant:Q.ant.render,timer:tDraw}[view]||(()=>{}))();
 }
 window.addEventListener('hashchange',route);
+applyLang();
 route();
 </script>
 </body>
