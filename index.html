@@ -1,0 +1,781 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b0e22">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Français Pro">
+<title>Français Pro</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%237c3aed'/%3E%3Ctext x='50' y='66' font-size='48' text-anchor='middle' fill='white' font-family='Arial' font-weight='bold'%3EFP%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Naskh+Arabic:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0b0e22; --card:rgba(255,255,255,.055); --card2:rgba(255,255,255,.1); --line:rgba(255,255,255,.09);
+  --tx:#eef0ff; --mu:#9aa0c7;
+  --c1a:#22d3ee; --c1b:#3b82f6; --c2a:#c084fc; --c2b:#7c3aed; --c3a:#fb7185; --c3b:#f97316; --c4a:#34d399; --c4b:#0ea5e9;
+  --a:#a78bfa; --b:#6366f1;
+  --ok:#34d399; --ko:#fb7185; --r:22px; --nav:66px;
+  --sb:env(safe-area-inset-bottom,0px); --st:env(safe-area-inset-top,0px);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none!important}
+html,body{margin:0;color:var(--tx);font-family:'Plus Jakarta Sans',system-ui,-apple-system,sans-serif}
+body{min-height:100dvh;background:
+  radial-gradient(900px 520px at -10% -10%,rgba(124,58,237,.35),transparent 60%),
+  radial-gradient(800px 480px at 115% 5%,rgba(14,165,233,.25),transparent 55%),
+  radial-gradient(700px 500px at 50% 120%,rgba(249,115,22,.12),transparent 60%),#0b0e22;
+  background-attachment:fixed}
+main{max-width:640px;margin:0 auto;padding:calc(14px + var(--st)) 16px calc(var(--nav) + var(--sb) + 28px)}
+.view{display:none}
+.view.on{display:block;animation:fade .28s ease}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+h1{font-size:27px;font-weight:800;letter-spacing:-.025em;margin:0}
+h2{font-size:21px;font-weight:800;margin:6px 0}
+h3{font-size:16px;font-weight:700;margin:0 0 12px;display:flex;align-items:center;gap:8px}
+p{margin:0}
+.sub{color:var(--mu);font-size:13.5px;line-height:1.45}
+.center{text-align:center}
+.t1{--a:var(--c1a);--b:var(--c1b)} .t2{--a:var(--c2a);--b:var(--c2b)} .t3{--a:var(--c3a);--b:var(--c3b)} .t4{--a:var(--c4a);--b:var(--c4b)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px;margin:14px 0;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.row{display:flex;gap:10px;margin-top:12px}
+.row>*{flex:1}
+.btn{appearance:none;border:0;border-radius:15px;padding:14px 16px;font-family:inherit;font-weight:700;font-size:15px;color:var(--tx);background:var(--card2);display:inline-flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;transition:transform .12s,opacity .2s;text-decoration:none}
+.btn:active{transform:scale(.97)}
+.btn:disabled{opacity:.35}
+.btn.pri{background:linear-gradient(135deg,var(--a),var(--b));color:#fff;box-shadow:0 10px 26px -10px var(--b)}
+.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--mu)}
+.btn.sm{padding:9px 12px;font-size:13px;border-radius:12px}
+.btn.wide{width:100%;margin-top:14px}
+.inp,textarea,select{width:100%;background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:15px;padding:14px;color:var(--tx);font-family:inherit;font-size:16px;outline:none;transition:border .2s}
+.inp:focus,textarea:focus{border-color:var(--a)}
+textarea{resize:vertical;min-height:150px;line-height:1.5}
+.inp+.inp{margin-top:10px}
+::placeholder{color:#6f74a0}
+.vh{display:flex;align-items:center;gap:14px;margin:6px 0 4px}
+.ico{width:50px;height:50px;border-radius:16px;display:grid;place-items:center;font-size:24px;flex:none;background:linear-gradient(135deg,var(--a),var(--b));box-shadow:0 10px 24px -10px var(--b)}
+.seg{display:flex;background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:16px;padding:4px;gap:4px;margin:14px 0}
+.seg button{flex:1;border:0;background:none;color:var(--mu);padding:10px 6px;border-radius:12px;font-family:inherit;font-weight:700;font-size:13.5px;cursor:pointer}
+.seg button.on{background:linear-gradient(135deg,var(--a),var(--b));color:#fff}
+/* nav */
+nav.tab{position:fixed;left:0;right:0;bottom:0;z-index:30;padding:7px 6px calc(7px + var(--sb));background:rgba(11,14,34,.82);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-top:1px solid var(--line)}
+nav.tab .in{max-width:640px;margin:0 auto;display:flex}
+nav.tab a{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;color:#7d82ad;text-decoration:none;font-size:10.5px;font-weight:700;padding:4px 0}
+nav.tab svg{width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+nav.tab a.on{color:#fff}
+nav.tab a.on svg{stroke:var(--c2a)}
+/* home */
+.hero{display:flex;justify-content:space-between;align-items:flex-start;margin:8px 0 6px}
+.hero h1{font-size:30px}
+.grad{background:linear-gradient(90deg,#c4b5fd,#67e8f9);-webkit-background-clip:text;background-clip:text;color:transparent}
+.gear{width:44px;height:44px;border-radius:14px;background:var(--card2);display:grid;place-items:center;text-decoration:none;font-size:20px}
+.gcard{display:flex;align-items:center;gap:14px;text-decoration:none;color:inherit;position:relative;overflow:hidden}
+.gcard:active{transform:scale(.985)}
+.gcard::after{content:"";position:absolute;right:-40px;top:-40px;width:140px;height:140px;border-radius:50%;background:radial-gradient(circle,var(--b),transparent 70%);opacity:.25}
+.gcard .txt{flex:1;min-width:0}
+.gcard b{font-size:16.5px;display:block}
+.gcard .stat{margin-top:6px;font-size:12px;font-weight:700;color:var(--a)}
+.gcard .arr{color:var(--mu);font-size:20px}
+.num{font-size:12px;font-weight:800;color:var(--mu);letter-spacing:.08em;text-transform:uppercase;margin:22px 0 2px}
+/* reader */
+.topbar{display:flex;align-items:center;gap:12px;margin:4px 0 10px}
+.back{width:42px;height:42px;border-radius:14px;background:var(--card2);display:grid;place-items:center;color:var(--tx);text-decoration:none;font-size:20px;flex:none}
+.tt{min-width:0;flex:1}
+.ell{font-weight:800;font-size:17px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pbar{height:6px;border-radius:9px;background:rgba(255,255,255,.08);overflow:hidden}
+.pbar i{display:block;height:100%;width:0;border-radius:9px;background:linear-gradient(90deg,var(--a),var(--b));transition:width .4s}
+.tools{display:flex;gap:10px;align-items:center;margin-top:12px}
+.tools select{width:auto;flex:1;padding:10px 12px;font-size:14px;border-radius:12px}
+.fsz{display:flex;gap:6px}
+.fsz button{width:44px;height:42px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--tx);font-weight:800;font-family:inherit}
+.ar{direction:rtl;text-align:right;font-family:'Noto Naskh Arabic',serif;font-size:var(--fs,22px);line-height:2.05;white-space:pre-wrap;-webkit-user-select:text;user-select:text;word-wrap:break-word}
+.read .ar{min-height:220px;cursor:text}
+.ar::selection,.ar *::selection{background:rgba(34,211,238,.38);color:#fff}
+.orig{white-space:pre-wrap;line-height:1.65;font-size:15px;color:#cfd2f1;margin-top:12px}
+details summary{cursor:pointer;font-weight:700;list-style:none}
+details summary::before{content:"▸ ";color:var(--a)}
+details[open] summary::before{content:"▾ "}
+.hint{font-size:12.5px;color:var(--mu);margin:-4px 0 6px}
+.skel{height:14px;border-radius:8px;margin:14px 0;background:linear-gradient(90deg,rgba(255,255,255,.05),rgba(255,255,255,.14),rgba(255,255,255,.05));background-size:200% 100%;animation:sh 1.2s infinite}
+.skel:nth-child(2n){width:80%;margin-left:auto}
+@keyframes sh{to{background-position:-200% 0}}
+.err{color:var(--ko);font-weight:600}
+.docitem{display:flex;gap:12px;align-items:center;padding:14px 0;border-top:1px solid var(--line)}
+.docitem:first-of-type{border-top:0}
+.docitem a{flex:1;min-width:0;color:inherit;text-decoration:none}
+.docitem .pbar{margin-top:8px;height:5px}
+.x{width:38px;height:38px;border-radius:12px;border:0;background:rgba(251,113,133,.12);color:var(--ko);font-size:16px;flex:none;cursor:pointer}
+.drop{display:flex;flex-direction:column;align-items:center;gap:6px;padding:26px 14px;border:1.5px dashed rgba(255,255,255,.2);border-radius:18px;cursor:pointer;text-align:center}
+.drop b{font-size:15px}
+.note{display:flex;gap:10px;align-items:flex-start;padding:12px 0;border-top:1px solid var(--line)}
+.note:first-child{border-top:0}
+.note .ar{font-size:18px;line-height:1.7}
+.note .tr{font-size:14.5px;color:#cfd2f1;margin-top:2px}
+.note>div{flex:1;min-width:0}
+/* selection bar + sheet */
+#selBar{position:fixed;left:12px;right:12px;bottom:calc(var(--nav) + var(--sb) + 12px);z-index:40;max-width:616px;margin:0 auto;transform:translateY(16px);opacity:0;pointer-events:none;transition:.22s}
+#selBar.on{transform:none;opacity:1;pointer-events:auto}
+.sb-in{display:flex;align-items:center;gap:10px;padding:10px 10px 10px 14px;border-radius:20px;background:rgba(22,26,61,.96);border:1px solid rgba(34,211,238,.35);box-shadow:0 18px 40px -12px rgba(0,0,0,.7)}
+.sb-txt{flex:1;min-width:0;font-size:17px;line-height:1.4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sb-btns{display:flex;gap:6px}
+.sb-btns button{border:0;border-radius:13px;padding:11px 13px;font-family:inherit;font-weight:800;font-size:14px;color:#fff;background:linear-gradient(135deg,var(--c1a),var(--c1b));cursor:pointer}
+.sb-btns button+button{background:linear-gradient(135deg,var(--c2a),var(--c2b))}
+#sheetBg{position:fixed;inset:0;z-index:50;background:rgba(3,5,18,.55);opacity:0;pointer-events:none;transition:.25s}
+#sheet{position:fixed;left:0;right:0;bottom:0;z-index:51;max-width:640px;margin:0 auto;max-height:82dvh;overflow:auto;background:#151938;border:1px solid var(--line);border-bottom:0;border-radius:26px 26px 0 0;padding:10px 18px calc(18px + var(--sb));transform:translateY(105%);transition:transform .3s cubic-bezier(.2,.8,.2,1);--a:var(--c1a);--b:var(--c1b)}
+.sheet-on #sheetBg{opacity:1;pointer-events:auto}
+.sheet-on #sheet{transform:none}
+.grab{width:42px;height:5px;border-radius:5px;background:rgba(255,255,255,.2);margin:0 auto 14px}
+#shSrc{font-size:21px;line-height:1.8;padding:12px 14px;border-radius:16px;background:rgba(255,255,255,.05)}
+#shRes{font-size:19px;font-weight:600;line-height:1.5;padding:16px 4px 4px;min-height:56px}
+/* quiz */
+.stats{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 0}
+.pill{font-size:12px;font-weight:700;padding:6px 10px;border-radius:99px;background:var(--card2);color:#d6d8f5}
+.pill.c{background:linear-gradient(135deg,var(--a),var(--b));color:#fff}
+.qcard{text-align:center;padding:26px 18px}
+.qlabel{font-size:12.5px;font-weight:700;color:var(--mu);text-transform:uppercase;letter-spacing:.08em}
+.qword{font-size:30px;font-weight:800;letter-spacing:-.02em;margin:12px 0 20px;line-height:1.2;background:linear-gradient(90deg,#fff,var(--a));-webkit-background-clip:text;background-clip:text;color:transparent}
+.qword.sm{font-size:24px;margin:8px 0 10px}
+.fb.good{border-color:rgba(52,211,153,.45);background:linear-gradient(180deg,rgba(52,211,153,.12),rgba(255,255,255,.04))}
+.fb.bad{border-color:rgba(251,113,133,.45);background:linear-gradient(180deg,rgba(251,113,133,.12),rgba(255,255,255,.04))}
+.fbh{font-size:19px;font-weight:800}
+.you{color:var(--mu);font-size:14px;margin-bottom:12px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.chip{padding:9px 13px;border-radius:12px;background:var(--card2);font-weight:700;font-size:14.5px}
+.chip.hit{background:rgba(52,211,153,.22);color:#a7f3d0;box-shadow:inset 0 0 0 1px rgba(52,211,153,.5)}
+.chip.hit::before{content:"✓ "}
+.presets .chip{cursor:pointer;border:0;color:var(--tx);font-family:inherit}
+.presets .chip.on{background:linear-gradient(135deg,var(--a),var(--b))}
+.wi{display:flex;gap:8px;align-items:center;padding:12px 0;border-top:1px solid var(--line)}
+.wi:first-child{border-top:0}
+.wi>div{flex:1;min-width:0}
+.wi b{display:block;font-size:15px}
+.wi span{font-size:13px;color:var(--mu)}
+.ib{width:38px;height:38px;border-radius:12px;border:0;background:var(--card2);font-size:15px;flex:none;cursor:pointer}
+.code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12.5px;min-height:320px;white-space:pre;overflow:auto;line-height:1.5}
+.big{font-size:54px}
+.empty{text-align:center;padding:30px 10px}
+/* timer */
+.ring{position:relative;width:min(78vw,280px);aspect-ratio:1;margin:8px auto 18px}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:14;stroke-linecap:round}
+.ring .trk{stroke:rgba(255,255,255,.07)}
+.ring .prg{stroke:url(#tg);transition:stroke-dashoffset .3s linear}
+.tc{position:absolute;inset:0;display:grid;place-content:center;text-align:center}
+#tTime{font-size:clamp(44px,15vw,62px);font-weight:800;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.stepper{display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:14px}
+.stepper button{width:52px;height:52px;border-radius:16px;border:0;background:var(--card2);color:var(--tx);font-size:26px;font-weight:700;cursor:pointer}
+.stepper .mv{display:flex;align-items:baseline;gap:6px}
+.stepper input{width:86px;text-align:center;font-size:26px;font-weight:800;padding:8px}
+.running .stepper,.running .presets{opacity:.35;pointer-events:none}
+#done{position:fixed;inset:0;z-index:60;display:grid;place-items:center;background:rgba(3,5,18,.75);backdrop-filter:blur(6px)}
+#done .card{text-align:center;width:min(88vw,360px);--a:var(--c4a);--b:var(--c4b)}
+#toast{position:fixed;left:50%;top:calc(14px + var(--st));transform:translate(-50%,-30px);opacity:0;z-index:70;background:#1f2450;border:1px solid var(--line);padding:11px 16px;border-radius:14px;font-weight:700;font-size:14px;transition:.25s;pointer-events:none;max-width:90vw}
+#toast.on{transform:translate(-50%,0);opacity:1}
+</style>
+</head>
+<body>
+<main>
+ 
+<!-- ============ ACCUEIL ============ -->
+<section class="view" id="v-home">
+  <div class="hero">
+    <div><p class="sub" id="hello">Bonjour 👋</p><h1>Ton <span class="grad">français pro</span>,<br>chaque jour.</h1></div>
+    <a class="gear" href="#backup" aria-label="Sauvegarde">⚙️</a>
+  </div>
+  <div class="num">Tes exercices</div>
+  <a class="card gcard t1" href="#read"><div class="ico">📖</div><div class="txt"><b>Lecture en arabe</b><p class="sub">Tes documents découpés en 500 mots, traduits en arabe</p><div class="stat" id="s1"></div></div><span class="arr">›</span></a>
+  <a class="card gcard t2" href="#syn"><div class="ico">🔁</div><div class="txt"><b>Synonymes</b><p class="sub">Trouve deux synonymes pour chaque mot</p><div class="stat" id="s2"></div></div><span class="arr">›</span></a>
+  <a class="card gcard t3" href="#ant"><div class="ico">⇄</div><div class="txt"><b>Antonymes</b><p class="sub">Trouve les contraires</p><div class="stat" id="s3"></div></div><span class="arr">›</span></a>
+  <a class="card gcard t4" href="#timer"><div class="ico">⏱️</div><div class="txt"><b>Minuteur</b><p class="sub">Un exercice mental chronométré</p><div class="stat" id="s4"></div></div><span class="arr">›</span></a>
+  <p class="sub center" style="margin-top:18px">Tout est enregistré sur ce téléphone. Pense à faire une sauvegarde de temps en temps ⚙️</p>
+</section>
+ 
+<!-- ============ JEU 1 : DOCUMENTS ============ -->
+<section class="view t1" id="v-read">
+  <div class="vh"><div class="ico">📖</div><div><h1>Lecture en arabe</h1><p class="sub">Ajoute un document, lis-le en arabe, traduis dans ta tête</p></div></div>
+  <div class="seg" id="addSeg"><button data-m="pdf" class="on">📄 PDF / fichier</button><button data-m="txt">✍️ Coller un texte</button></div>
+  <div class="card" id="addPdf">
+    <label class="drop"><span style="font-size:30px">📄</span><b>Choisir un PDF</b><span class="sub">ou un fichier .txt — contrat, CGV, rapport…</span>
+      <input type="file" id="fileIn" accept="application/pdf,.pdf,.txt,text/plain" hidden></label>
+    <p class="sub center" id="pdfStatus" style="margin-top:10px"></p>
+  </div>
+  <div class="card" id="addTxt" hidden>
+    <input class="inp" id="txtTitle" placeholder="Titre (ex : CGV fournisseur)">
+    <textarea class="inp" id="txtBody" placeholder="Colle ton texte ici (français, anglais ou arabe)…" style="margin-top:10px"></textarea>
+    <button class="btn pri wide" id="txtAdd">Créer l'exercice</button>
+  </div>
+  <div class="num">Mes documents</div>
+  <div class="card" id="docList"></div>
+</section>
+ 
+<!-- ============ JEU 1 : LECTEUR ============ -->
+<section class="view t1" id="v-doc">
+  <div class="topbar"><a href="#read" class="back">‹</a><div class="tt"><div id="docTitle" class="ell"></div><div class="sub" id="docProg"></div></div></div>
+  <div class="pbar"><i id="docBar"></i></div>
+  <div class="tools">
+    <select id="docLang" aria-label="Langue d'origine">
+      <option value="fr">Original : français</option><option value="en">Original : anglais</option><option value="ar">Original : arabe</option>
+    </select>
+    <div class="fsz"><button id="fsM">A−</button><button id="fsP">A+</button></div>
+  </div>
+  <div class="card read"><div id="arText" class="ar"></div></div>
+  <p class="hint center">👆 Touche un mot ou sélectionne une phrase pour la traduire</p>
+  <details class="card" id="origWrap"><summary>Voir le texte original</summary><div class="orig" id="origText"></div></details>
+  <div class="row"><button class="btn" id="btnPrev">‹ Précédent</button><button class="btn pri" id="btnNext">Suivant ›</button></div>
+  <div class="card"><h3>⭐ Mon carnet <span class="sub" id="noteCnt"></span></h3><div id="notes"></div></div>
+</section>
+ 
+<!-- ============ JEUX 2 & 3 (générés) ============ -->
+<section class="view t2" id="v-syn"></section>
+<section class="view t3" id="v-ant"></section>
+ 
+<!-- ============ JEU 4 : MINUTEUR ============ -->
+<section class="view t4" id="v-timer">
+  <div class="vh"><div class="ico">⏱️</div><div><h1>Minuteur</h1><p class="sub">Choisis ta durée, lance, fais ton exercice dans ta tête</p></div></div>
+  <div class="card" id="tCard">
+    <div class="ring">
+      <svg viewBox="0 0 260 260"><defs><linearGradient id="tg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#34d399"/><stop offset="1" stop-color="#0ea5e9"/></linearGradient></defs>
+        <circle class="trk" cx="130" cy="130" r="115"/><circle class="prg" id="tPrg" cx="130" cy="130" r="115" stroke-dasharray="722.57" stroke-dashoffset="0"/></svg>
+      <div class="tc"><div id="tTime">05:00</div><div class="sub" id="tState">Prêt</div></div>
+    </div>
+    <div class="stepper"><button data-s="-1">−</button><div class="mv"><input class="inp" type="number" id="tMin" min="1" max="180" inputmode="numeric"><span class="sub">min</span></div><button data-s="1">+</button></div>
+    <div class="chips presets" id="tPre"></div>
+    <div class="row" style="margin-top:18px"><button class="btn" id="tReset">Réinitialiser</button><button class="btn pri" id="tGo">Démarrer</button></div>
+  </div>
+  <p class="sub center">L'écran reste allumé pendant le décompte. Un son et une vibration t'avertissent à la fin.</p>
+</section>
+ 
+<!-- ============ SAUVEGARDE ============ -->
+<section class="view" id="v-backup">
+  <div class="topbar"><a href="#home" class="back">‹</a><div class="tt"><div class="ell">Sauvegarde</div><div class="sub">Garde une copie de tes données ailleurs</div></div></div>
+  <div class="card">
+    <h3>📤 Exporter</h3>
+    <p class="sub">Documents, progression, carnets, synonymes et antonymes (les traductions se refont toutes seules).</p>
+    <div class="row"><button class="btn pri" id="bkCopy">📋 Copier</button><button class="btn" id="bkDl">⬇️ Télécharger</button></div>
+  </div>
+  <div class="card">
+    <h3>📥 Restaurer</h3>
+    <textarea id="bkIn" class="code" style="min-height:140px" placeholder="Colle ici une sauvegarde…"></textarea>
+    <button class="btn wide" id="bkRestore">Restaurer cette sauvegarde</button>
+  </div>
+</section>
+ 
+</main>
+ 
+<nav class="tab"><div class="in">
+  <a href="#home" data-v="home"><svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>Accueil</a>
+  <a href="#read" data-v="read"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>Lecture</a>
+  <a href="#syn" data-v="syn"><svg viewBox="0 0 24 24"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></svg>Synonymes</a>
+  <a href="#ant" data-v="ant"><svg viewBox="0 0 24 24"><path d="M8 3 4 7l4 4"/><path d="M4 7h16"/><path d="m16 21 4-4-4-4"/><path d="M20 17H4"/></svg>Antonymes</a>
+  <a href="#timer" data-v="timer"><svg viewBox="0 0 24 24"><path d="M10 2h4"/><path d="m12 14 3-3"/><circle cx="12" cy="14" r="8"/></svg>Minuteur</a>
+</div></nav>
+ 
+<div id="selBar"><div class="sb-in"><div class="sb-txt ar" id="sbTxt"></div><div class="sb-btns"><button data-l="fr">🇫🇷 FR</button><button data-l="en">🇬🇧 EN</button></div></div></div>
+<div id="sheetBg"></div>
+<div id="sheet">
+  <div class="grab"></div>
+  <div id="shSrc" class="ar"></div>
+  <div class="seg" id="shSeg"><button data-l="fr">🇫🇷 Français</button><button data-l="en">🇬🇧 English</button></div>
+  <div id="shRes"></div>
+  <div class="row"><button class="btn" id="shKeep">⭐ Garder</button><button class="btn pri" id="shClose">Retour au texte</button></div>
+</div>
+<div id="done" hidden><div class="card"><div class="big">⏰</div><h2>Temps écoulé !</h2><p class="sub" style="margin-bottom:6px">Bravo pour cet exercice 💪</p><button class="btn pri wide" id="doneOk">OK</button></div></div>
+<div id="toast"></div>
+ 
+<script>
+/* ================= UTILITAIRES ================= */
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+const store={
+  get(k,d){try{const v=localStorage.getItem('fp_'+k);return v==null?d:JSON.parse(v)}catch(e){return d}},
+  set(k,v){try{localStorage.setItem('fp_'+k,JSON.stringify(v));return true}catch(e){toast('⚠️ Mémoire du téléphone pleine');return false}},
+  del(k){localStorage.removeItem('fp_'+k)}
+};
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('on'),2300)}
+async function copyText(t){try{await navigator.clipboard.writeText(t)}catch(e){const ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove()}toast('Copié ✓')}
+function download(name,text,type='text/plain'){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type:type+';charset=utf-8'}));a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500)}
+ 
+/* ================= TRADUCTION ================= */
+function detectLang(t){
+  const ar=(t.match(/[\u0600-\u06FF]/g)||[]).length, lat=(t.match(/[a-zA-ZÀ-ÿ]/g)||[]).length;
+  if(ar>lat) return 'ar';
+  const fr=new Set('le la les des du et est une un pour dans que qui sur par au aux ne pas sont il elle avec ce cette nous vous être sera'.split(' '));
+  const en=new Set('the and of to is in for that with on by are this be as an it or shall will from which'.split(' '));
+  let f=0,e=0; t.toLowerCase().split(/[^a-zà-ÿ]+/).forEach(w=>{if(fr.has(w))f++;if(en.has(w))e++});
+  return f>=e?'fr':'en';
+}
+function splitPieces(text,max){
+  const sents=text.match(/[^.!?؟\n]+[.!?؟]*[ \t]*\n*|\n+/g)||[text];
+  const out=[];let cur='';
+  for(let s of sents){
+    while(s.length>max){const cut=s.lastIndexOf(' ',max)>0?s.lastIndexOf(' ',max):max;if(cur){out.push(cur);cur=''}out.push(s.slice(0,cut));s=s.slice(cut)}
+    if((cur+s).length>max&&cur){out.push(cur);cur=''}
+    cur+=s;
+  }
+  if(cur)out.push(cur);
+  return out;
+}
+async function gtx(text,sl,tl){
+  const r=await fetch('https://translate.googleapis.com/translate_a/single?client=gtx&dt=t&sl='+sl+'&tl='+tl+'&q='+encodeURIComponent(text));
+  if(!r.ok)throw new Error('gtx '+r.status);
+  const j=await r.json();return j[0].map(x=>x[0]).join('');
+}
+async function mymemory(text,sl,tl){
+  if(sl==='auto')sl=detectLang(text);
+  const r=await fetch('https://api.mymemory.translated.net/get?langpair='+sl+'|'+tl+'&q='+encodeURIComponent(text));
+  const j=await r.json();if(+j.responseStatus!==200)throw new Error(j.responseDetails);return j.responseData.translatedText;
+}
+async function translate(text,sl,tl){
+  if(sl===tl)return text;
+  const out=[];
+  for(const p of splitPieces(text,1400)){
+    const core=p.trim();
+    if(!core){out.push(p);continue}
+    const lead=p.match(/^\s*/)[0], trail=p.match(/\s*$/)[0];
+    let t;
+    try{t=await gtx(core,sl,tl)}
+    catch(e){t='';for(const q of splitPieces(core,450)){t+=q.trim()?await mymemory(q.trim(),sl,tl)+' ':q}}
+    out.push(lead+t.trim()+trail);
+  }
+  return out.join('');
+}
+ 
+/* ================= DOCUMENTS (JEU 1) ================= */
+const CHUNK=500;
+function chunkText(text,size=CHUNK){
+  text=text.replace(/\r/g,'').replace(/[ \t]+\n/g,'\n').replace(/\n{3,}/g,'\n\n').trim();
+  const toks=text.split(/(\s+)/),chunks=[];let cur=[],n=0;
+  for(const t of toks){
+    cur.push(t);
+    if(t&&!/^\s+$/.test(t)){n++;
+      if(n>=size&&(/[.!?؟:;]["»”')]?$/.test(t)||n>=size+80)){chunks.push(cur.join('').trim());cur=[];n=0}}
+  }
+  const rest=cur.join('').trim();
+  if(rest){if(n<60&&chunks.length)chunks[chunks.length-1]+=' '+rest;else chunks.push(rest)}
+  return chunks;
+}
+const Docs={
+  all(){return store.get('docs',[])},
+  get(id){return this.all().find(d=>d.id===id)},
+  put(d){const l=this.all(),i=l.findIndex(x=>x.id===d.id);if(i>=0)l[i]=d;else l.unshift(d);return store.set('docs',l)},
+  del(id){const d=this.get(id);if(d)d.chunks.forEach((_,i)=>store.del('tr_'+id+'_'+i));store.set('docs',this.all().filter(x=>x.id!==id))}
+};
+const LANGS={fr:'🇫🇷 Français',en:'🇬🇧 Anglais',ar:'🇱🇧 Arabe'};
+function addDoc(title,text){
+  text=(text||'').trim();
+  if(text.split(/\s+/).length<5){toast('Texte trop court ou illisible');return}
+  const d={id:uid(),title:(title||'').trim()||text.slice(0,42).replace(/\s+/g,' ')+'…',lang:detectLang(text.slice(0,6000)),chunks:chunkText(text),pos:0,words:text.split(/\s+/).length,notes:[],created:Date.now()};
+  if(Docs.put(d)){toast('Document ajouté ✓');location.hash='read/'+d.id}
+}
+function renderDocs(){
+  const l=Docs.all(),box=$('#docList');
+  if(!l.length){box.innerHTML='<div class="empty"><div class="big">📚</div><p class="sub">Aucun document pour l\'instant.<br>Ajoute un PDF ou colle un texte au-dessus.</p></div>';return}
+  box.innerHTML=l.map(d=>{const n=d.chunks.length,done=d.done?n:d.pos;return `<div class="docitem"><a href="#read/${d.id}"><div class="ell" style="font-size:15.5px">${esc(d.title)}</div>
+    <div class="sub">${LANGS[d.lang]||''} · ${d.words} mots · ${d.done?'✅ Terminé':'Passage '+(d.pos+1)+'/'+n}</div><div class="pbar"><i style="width:${done/n*100}%"></i></div></a>
+    <button class="x" data-del="${d.id}" aria-label="Supprimer">🗑</button></div>`}).join('');
+}
+$('#docList').addEventListener('click',e=>{const id=e.target.closest('[data-del]')?.dataset.del;if(id&&confirm('Supprimer ce document ?')){Docs.del(id);renderDocs()}});
+$('#addSeg').addEventListener('click',e=>{const m=e.target.closest('button')?.dataset.m;if(!m)return;$$('#addSeg button').forEach(b=>b.classList.toggle('on',b.dataset.m===m));$('#addPdf').hidden=m!=='pdf';$('#addTxt').hidden=m!=='txt'});
+$('#txtAdd').onclick=()=>{addDoc($('#txtTitle').value,$('#txtBody').value);$('#txtTitle').value='';$('#txtBody').value=''};
+ 
+const PDFJS='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/';
+function loadPdfLib(){
+  if(window.pdfjsLib)return Promise.resolve();
+  return new Promise((res,rej)=>{const s=document.createElement('script');s.src=PDFJS+'pdf.min.js';s.onload=()=>{pdfjsLib.GlobalWorkerOptions.workerSrc=PDFJS+'pdf.worker.min.js';res()};s.onerror=()=>rej(new Error('pdf.js'));document.head.appendChild(s)});
+}
+async function readPdf(file,status){
+  await loadPdfLib();
+  const pdf=await pdfjsLib.getDocument({data:await file.arrayBuffer()}).promise;let out='';
+  for(let p=1;p<=pdf.numPages;p++){
+    status(`Lecture page ${p} / ${pdf.numPages}…`);
+    const tc=await (await pdf.getPage(p)).getTextContent();
+    out+=tc.items.map(it=>it.str+(it.hasEOL?'\n':'')).join('')+'\n\n';
+  }
+  return out.replace(/-\n(?=[a-zà-ÿ])/g,'').replace(/([^\n])\n(?!\n)/g,'$1 ').replace(/[ \t]{2,}/g,' ');
+}
+$('#fileIn').addEventListener('change',async e=>{
+  const f=e.target.files[0];if(!f)return;const st=$('#pdfStatus'),say=m=>st.textContent=m;
+  try{
+    say('Lecture du fichier…');
+    const text=/pdf$/i.test(f.name)||f.type==='application/pdf'?await readPdf(f,say):await f.text();
+    if(text.trim().split(/\s+/).length<5){say('⚠️ Aucun texte trouvé (PDF scanné en image ?). Essaie de copier-coller le texte.');return}
+    say('');addDoc(f.name.replace(/\.(pdf|txt)$/i,''),text);
+  }catch(err){say('⚠️ Impossible de lire ce fichier. Vérifie ta connexion ou colle le texte.')}
+  e.target.value='';
+});
+ 
+/* ---- Lecteur ---- */
+let cur=null;
+const arText=$('#arText');
+function setFs(v){v=Math.min(34,Math.max(16,v));store.set('fs',v);document.documentElement.style.setProperty('--fs',v+'px')}
+setFs(store.get('fs',22));
+$('#fsM').onclick=()=>setFs(store.get('fs',22)-2);
+$('#fsP').onclick=()=>setFs(store.get('fs',22)+2);
+function openDoc(id){cur=Docs.get(id);if(!cur){location.hash='read';return}renderReader()}
+function renderReader(){
+  const d=cur,n=d.chunks.length,i=d.pos;
+  $('#docTitle').textContent=d.title;
+  $('#docProg').textContent=`Passage ${i+1} / ${n} · ~${CHUNK} mots`;
+  $('#docBar').style.width=((i+1)/n*100)+'%';
+  $('#docLang').value=d.lang;
+  $('#btnPrev').disabled=i===0;
+  $('#btnNext').textContent=i===n-1?'Terminer 🎉':'Suivant ›';
+  $('#origWrap').hidden=d.lang==='ar';$('#origWrap').open=false;
+  $('#origText').textContent=d.chunks[i];$('#origText').dir=d.lang==='ar'?'rtl':'ltr';
+  renderNotes();loadChunk();
+}
+async function chunkAr(d,i){
+  if(d.lang==='ar')return d.chunks[i];
+  const k='tr_'+d.id+'_'+i;let t=store.get(k,null);
+  if(!t){t=await translate(d.chunks[i],d.lang,'ar');store.set(k,t)}
+  return t;
+}
+async function loadChunk(){
+  const d=cur,i=d.pos;
+  arText.innerHTML='<div class="skel"></div><div class="skel"></div><div class="skel"></div><div class="skel"></div><p class="sub center" dir="ltr">Traduction en arabe…</p>';
+  try{
+    const t=await chunkAr(d,i);
+    if(cur!==d||d.pos!==i)return;
+    arText.textContent=t;
+    if(i+1<d.chunks.length)chunkAr(d,i+1).catch(()=>{}); // prépare le suivant
+  }catch(e){
+    if(cur!==d||d.pos!==i)return;
+    arText.innerHTML='<p class="err" dir="ltr" style="text-align:center">Traduction impossible pour le moment (connexion ?)</p><button class="btn wide" dir="ltr" id="retry">Réessayer</button>';
+    $('#retry').onclick=loadChunk;
+  }
+}
+function go(delta){
+  const d=cur,n=d.chunks.length;
+  if(delta>0&&d.pos===n-1){d.done=true;Docs.put(d);toast('🎉 Document terminé, bravo !');location.hash='read';return}
+  d.pos=Math.min(n-1,Math.max(0,d.pos+delta));Docs.put(d);window.scrollTo({top:0,behavior:'smooth'});renderReader();
+}
+$('#btnPrev').onclick=()=>go(-1);
+$('#btnNext').onclick=()=>go(1);
+$('#docLang').onchange=e=>{const d=cur;d.chunks.forEach((_,i)=>store.del('tr_'+d.id+'_'+i));d.lang=e.target.value;Docs.put(d);renderReader()};
+function renderNotes(){
+  const l=cur.notes||[];
+  $('#noteCnt').textContent=l.length?`(${l.length})`:'';
+  $('#notes').innerHTML=l.length?l.slice().reverse().map((x,k)=>`<div class="note"><div><div class="ar">${esc(x.s)}</div><div class="tr">${x.l==='en'?'🇬🇧':'🇫🇷'} ${esc(x.t)}</div></div><button class="x" data-n="${l.length-1-k}">✕</button></div>`).join('')
+    :'<p class="sub">Les traductions que tu gardes ⭐ apparaissent ici pour les réviser.</p>';
+}
+$('#notes').addEventListener('click',e=>{const n=e.target.closest('[data-n]')?.dataset.n;if(n==null)return;cur.notes.splice(+n,1);Docs.put(cur);renderNotes()});
+ 
+/* ---- Sélection & traduction ---- */
+let selText='',hideT;
+const isWordChar=c=>c&&!/[\s.,;:!?؟،؛«»"'“”()\[\]{}\-–—…\/]/.test(c);
+arText.addEventListener('click',e=>{
+  const sel=getSelection();if(!sel.isCollapsed)return;
+  let node,off;
+  if(document.caretRangeFromPoint){const r=document.caretRangeFromPoint(e.clientX,e.clientY);if(!r)return;node=r.startContainer;off=r.startOffset}
+  else if(document.caretPositionFromPoint){const p=document.caretPositionFromPoint(e.clientX,e.clientY);if(!p)return;node=p.offsetNode;off=p.offset}
+  if(!node||node.nodeType!==3)return;
+  const s=node.textContent;let a=off,b=off;
+  while(a>0&&isWordChar(s[a-1]))a--;while(b<s.length&&isWordChar(s[b]))b++;
+  if(a===b)return;
+  const r=document.createRange();r.setStart(node,a);r.setEnd(node,b);sel.removeAllRanges();sel.addRange(r);
+});
+document.addEventListener('selectionchange',()=>{
+  const sel=getSelection(),t=sel.toString().trim();
+  if(t&&sel.anchorNode&&arText.contains(sel.anchorNode)&&$('#v-doc').classList.contains('on')){
+    clearTimeout(hideT);selText=t;$('#sbTxt').textContent=t;$('#selBar').classList.add('on');
+  }else{clearTimeout(hideT);hideT=setTimeout(hideSelBar,400)}
+});
+function hideSelBar(){$('#selBar').classList.remove('on')}
+$$('#selBar button').forEach(b=>b.addEventListener('pointerdown',e=>{e.preventDefault();if(selText)openSheet(selText,b.dataset.l)}));
+let shSrc='',shLang='fr',shRes='';const trCache=new Map();
+function openSheet(src,tl){shSrc=src;shLang=tl;$('#shSrc').textContent=src;document.body.classList.add('sheet-on');hideSelBar();getSelection().removeAllRanges();doSheet()}
+function closeSheet(){document.body.classList.remove('sheet-on')}
+async function doSheet(){
+  const src=shSrc,tl=shLang,k=tl+'|'+src,res=$('#shRes');
+  $$('#shSeg button').forEach(b=>b.classList.toggle('on',b.dataset.l===tl));
+  shRes='';
+  if(trCache.has(k)){shRes=trCache.get(k);res.textContent=shRes;return}
+  res.innerHTML='<div class="skel"></div>';
+  try{const t=await translate(src,'ar',tl);trCache.set(k,t);if(src===shSrc&&tl===shLang){shRes=t;res.textContent=t}}
+  catch(e){res.innerHTML='<span class="err">Traduction indisponible (connexion ?)</span>'}
+}
+$('#shSeg').addEventListener('click',e=>{const l=e.target.closest('button')?.dataset.l;if(l){shLang=l;doSheet()}});
+$('#sheetBg').onclick=closeSheet;$('#shClose').onclick=closeSheet;
+$('#shKeep').onclick=()=>{if(!shRes||!cur)return;cur.notes=cur.notes||[];if(!cur.notes.some(n=>n.s===shSrc&&n.l===shLang)){cur.notes.push({s:shSrc,t:shRes,l:shLang});Docs.put(cur);renderNotes()}toast('⭐ Ajouté au carnet');closeSheet()};
+ 
+/* ================= JEUX 2 & 3 : SYNONYMES / ANTONYMES ================= */
+const SEED_SYN=[
+["J'ai une montagne de dossiers qui s'empilent",["s'accumulent","s'accroissent"]],
+["Les demandes affluent",["arrivent massivement","se multiplient"]],
+["Amplifier",["augmenter","intensifier"]],["Incontournable",["indispensable","essentiel"]],
+["Instable",["volatile","fluctuant"]],["Améliorer",["optimiser","valoriser"]],
+["Stagner",["se figer","plafonner"]],["Rétrograder",["reculer","régresser"]],
+["À la rigueur (كحلٍّ أخير)",["le cas échéant (عند الاقتضاء)","à défaut"]],
+["Obligatoire",["requis","exigé","imposé"]],["Bouleverser",["perturber","déstabiliser"]],
+["Plausible",["crédible","fiable"]],["Antérieur",["au préalable","en amont"]],
+["Postérieur",["ultérieur","à venir"]],["Sécuriser",["assurer","garantir"]],
+["Déléguer",["attribuer","confier"]],["Prévoir",["anticiper","projeter"]],
+["Éviter toutes sortes de dérives (انحراف)",["dérapages (انزلاقات)","anomalies"]],
+["Adéquat",["approprié","pertinent"]],["Souligner",["mettre en évidence","attirer l'attention sur"]],
+["Immobilisé",["bloqué","coincé"]],["Affecté négativement",["nuire","détériorer"]],
+["Successif",["consécutif","progressif"]],["Se répand",["se propage","se diffuse"]],
+["Progressivement",["graduellement","croissant"]],["Félicité",["récompensé","valorisé"]],
+["Hormis",["mis à part","à l'exception de"]],["Présumé",["supposé","estimé"]],
+["À quel point",["dans quelle mesure","à quel degré","à quel niveau"]],
+["Analyser",["examiner","évaluer"]],["Aligner",["harmoniser","synchroniser"]],
+["Prioriser",["hiérarchiser","arbitrer"]],["Processus",["procédure","démarche"]],
+["Enjeu",["défi","problématique"]],["Agile",["flexible","adaptable"]],
+["Robuste",["solide","résilient"]],["Quantifiable",["mesurable","chiffrable"]],
+["Considérable",["significatif","majeur"]],["Se détériorer",["se dégrader","s'affaiblir"]],
+["La situation s'améliore",["se rétablit","se redresse"]],["Réduire",["minimiser","diminuer"]],
+["Soulager",["apaiser","alléger"]],["Pencher (مائل)",["incliner","oblique (مورّب)"]],
+["Frisson (قشعريرة)",["tremblement (رعشة)","convulsions (تشنجات)"]],
+["Indésirable",["gênant","encombrant"]],["Fardeau",["contrainte","charge"]],
+["Favorable",["avantageux","bénéfique"]],["Supplémentaire",["additionnel","complémentaire"]],
+["Clairement",["explicitement","sans ambiguïté"]],["Sauter",["zapper","négliger"]],
+["Ça a entraîné",["engendré","causé"]],["Ça a détérioré",["endommagé","abîmé"]],
+["Accessible",["disponible","atteignable"]],["Auparavant",["précédemment","autrefois","dans le passé"]],
+["Préférence",["privilège","favoritisme"]],["Faire face à",["se confronter à","se mesurer à"]],
+["Arrangement",["compromis","accord","concession"]],["Sévère",["intransigeant","strict"]],
+["Compréhensif",["conciliant","souple"]],["Piloter",["diriger","gérer","manager"]],
+["Sanctionner",["punir","pénaliser"]],["Indifférent",["insensible","détaché","froid"]],
+["Intact",["indemne","vierge"]],["Vandaliser (تخريب)",["saccager","saboter","dégrader"]],
+["Disproportionné",["excessif","démesuré"]],["Pragmatique",["pratique","concret","réaliste"]],
+["Improviser",["spontané","non planifié","arranger à la dernière minute"]],
+["Écarter",["exclure","éliminer"]],["Fermeté",["autorité","intransigeance"]],
+["Précipité",["prématuré","anticipé"]]
+];
+const SEED_ANT=[
+["Augmenter",["diminuer","réduire"]],["Accélérer",["ralentir","freiner"]],
+["Favorable",["défavorable","préjudiciable"]],["Excédent",["déficit","manque"]],
+["Facultatif",["obligatoire","requis"]],["Rentable",["déficitaire","non rentable"]],
+["Approuver",["désapprouver","rejeter"]],["Avantage",["inconvénient","désavantage"]],
+["Croissance",["décroissance","récession"]],["Optimiste",["pessimiste","alarmiste"]]
+];
+const norm=s=>String(s).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[\u0600-\u06FF\u0750-\u077F]+/g,' ').replace(/[’`]/g,"'").replace(/[^a-z0-9' ]+/g,' ').replace(/\s+/g,' ').trim();
+function lev(a,b){if(Math.abs(a.length-b.length)>2)return 9;let p=Array.from({length:b.length+1},(_,i)=>i);for(let i=1;i<=a.length;i++){const c=[i];for(let j=1;j<=b.length;j++)c[j]=Math.min(p[j]+1,c[j-1]+1,p[j-1]+(a[i-1]===b[j-1]?0:1));p=c}return p[b.length]}
+function checkAnswer(resp,answers){
+  const parts=resp.split(/[,;\/\n]|\s+et\s+|\s+ou\s+/i).map(norm).filter(Boolean);
+  const matched=[],typos=[];
+  answers.forEach((a,i)=>{const na=norm(a);if(!na)return;
+    for(const p of parts){
+      if(p===na||(na.length>=3&&(' '+p+' ').includes(' '+na+' '))||(p.length>=4&&(' '+na+' ').includes(' '+p+' '))){matched.push(i);break}
+      const tol=na.length>=8?2:na.length>=5?1:0;
+      const core=x=>x.replace(/^(se |s'|l'|le |la |les |d')/,''),cp=core(p),ca=core(na);
+      if(tol&&(lev(p,na)<=tol||(ca.length>=5&&lev(cp,ca)<=tol))){matched.push(i);typos.push(a);break}
+    }});
+  return{ok:matched.length>0,full:matched.length>=Math.min(2,answers.length),matched,typos};
+}
+const splitAns=s=>s.split(/\s*[,;]\s*/).map(x=>x.trim()).filter(Boolean);
+function parsePy(code){
+  const out=[],re=/(["'])((?:\\.|(?!\1).)*)\1\s*:\s*\[([^\]]*)\]/g;let m;
+  const un=s=>s.replace(/\\(["'\\])/g,'$1');
+  while((m=re.exec(code))){const vals=[],re2=/(["'])((?:\\.|(?!\1).)*)\1/g;let v;
+    while((v=re2.exec(m[3])))vals.push(...splitAns(un(v[2])));
+    const w=un(m[2]).trim();if(w&&vals.length)out.push({w,a:vals})}
+  return out;
+}
+ 
+function Quiz(kind){
+  const K={syn:{label:'synonymes',title:'Synonymes',icon:'🔁',py:'verbes',seed:SEED_SYN},
+           ant:{label:'antonymes',title:'Antonymes',icon:'⇄',py:'antonymes',seed:SEED_ANT}}[kind];
+  const root=$('#v-'+kind);let tab='play',last=null,editing=null;
+  root.innerHTML=`<div class="vh"><div class="ico">${K.icon}</div><div><h1>${K.title}</h1><p class="sub">Donne deux ${K.label} pour chaque mot</p></div></div>
+    <div class="seg tabs"><button data-tab="play">🎯 Jouer</button><button data-tab="list">📝 Mes mots</button><button data-tab="code">🐍 Code</button></div><div class="body"></div>`;
+  const words=()=>{let w=store.get('words_'+kind,null);if(!w){w=K.seed.map(([w,a])=>({w,a}));store.set('words_'+kind,w)}return w};
+  const saveWords=w=>store.set('words_'+kind,w);
+  function deck(){
+    const W=words().map(e=>e.w),set=new Set(W);
+    let d=store.get('deck_'+kind,null)||{order:shuffle(W),pos:0,ok:0,done:0,round:1};
+    const seen=d.order.slice(0,d.pos).filter(w=>set.has(w)),rest=d.order.slice(d.pos).filter(w=>set.has(w));
+    const inD=new Set(d.order);
+    W.filter(w=>!inD.has(w)).forEach(w=>rest.splice(Math.random()*(rest.length+1)|0,0,w));
+    d.order=seen.concat(rest);d.pos=seen.length;store.set('deck_'+kind,d);return d;
+  }
+  function restart(){const d=deck();store.set('deck_'+kind,{order:shuffle(words().map(e=>e.w)),pos:0,ok:0,done:0,round:(d.round||1)+1});last=null;render()}
+  function toPy(){const W=words(),v=K.py,q=s=>JSON.stringify(s);
+    return `import random
+ 
+# Jeu des ${K.label} — exporté depuis Français Pro
+${v} = {
+${W.map(e=>`    ${q(e.w)}: [${e.a.map(q).join(', ')}],`).join('\n')}
+}
+ 
+questions = random.sample(list(${v}.keys()), min(10, len(${v})))
+score = 0
+ 
+print("🎯 Bienvenue dans le jeu du vocabulaire professionnel !")
+print("Tu vas devoir donner deux ${K.label} pour chaque mot.\\n")
+ 
+for mot in questions:
+    reponses = ${v}[mot]
+    reponse = input(f"Donne deux ${K.label} pour '{mot}' : ").strip().lower()
+    if any(r.lower() in reponse for r in reponses):
+        print("✅ Vrai, bonne réponse !\\n")
+        score += 1
+    else:
+        print(f"❌ Faux. Les bonnes réponses étaient : {', '.join(reponses)}\\n")
+ 
+print(f"🎉 Jeu terminé ! Ton score final est : {score}/{len(questions)}.")
+`}
+  function render(){
+    $$('.tabs button',root).forEach(b=>b.classList.toggle('on',b.dataset.tab===tab));
+    const b=$('.body',root);
+    if(tab==='play')renderPlay(b);else if(tab==='list')renderList(b);else renderCode(b);
+  }
+  function renderPlay(b){
+    const d=deck(),n=d.order.length;
+    if(!n){b.innerHTML=`<div class="card empty"><div class="big">🗂️</div><p class="sub">Ta liste est vide.</p><button class="btn pri wide" data-act="tolist">Ajouter des mots</button></div>`;return}
+    const shown=last?d.pos:Math.min(d.pos+1,n);
+    const stats=`<div class="stats"><span class="pill c">Tour ${d.round}</span><span class="pill">${shown} / ${n}</span><span class="pill">✅ ${d.ok} / ${d.done}</span></div><div class="pbar" style="margin-top:12px"><i style="width:${shown/n*100}%"></i></div>`;
+    if(last){const L=last;
+      b.innerHTML=stats+`<div class="card fb center ${L.ok?'good':'bad'}"><div class="fbh">${L.full?'🎉 Parfait !':L.ok?'✅ Bonne réponse !':'❌ Pas cette fois'}</div>
+        <div class="qword sm">${esc(L.w)}</div>${L.resp?`<div class="you">Ta réponse : ${esc(L.resp)}</div>`:''}
+        <div class="qlabel" style="margin-bottom:10px">${L.ok?'Réponses possibles':'Les bonnes réponses'}</div>
+        <div class="chips">${L.answers.map((a,i)=>`<span class="chip ${L.matched.includes(i)?'hit':''}">${esc(a)}</span>`).join('')}</div>
+        ${L.typos.length?`<p class="sub" style="margin-top:12px">✍️ Attention à l'orthographe : <b>${L.typos.map(esc).join(', ')}</b></p>`:''}
+        <button class="btn pri wide" data-act="next">${d.pos>=n?'Voir le bilan':'Suivant ›'}</button></div>`;
+      $('[data-act=next]',b).focus();return}
+    if(d.pos>=n){
+      const pct=d.done?Math.round(d.ok/d.done*100):0;
+      b.innerHTML=stats+`<div class="card empty"><div class="big">${pct>=80?'🏆':pct>=50?'👏':'💪'}</div><h2>Tour ${d.round} terminé !</h2>
+        <p class="sub">Tu as vu tous les mots. Score : <b>${d.ok} / ${d.done}</b> (${pct} %)</p><button class="btn pri wide" data-act="restart">Recommencer un tour</button></div>`;return}
+    const w=d.order[d.pos];
+    b.innerHTML=stats+`<div class="card qcard"><div class="qlabel">Donne deux ${K.label} pour</div><div class="qword">${esc(w)}</div>
+      <input class="inp" id="ans" placeholder="ex : mot 1, mot 2" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" enterkeyhint="done">
+      <div class="row"><button class="btn ghost" data-act="skip">Je ne sais pas</button><button class="btn pri" data-act="check">Valider</button></div></div>
+      <button class="btn ghost sm" data-act="restart" style="display:block;margin:4px auto 0">↻ Remélanger et recommencer</button>`;
+  }
+  function doCheck(skip){
+    const d=deck(),w=d.order[d.pos],e=words().find(x=>x.w===w);if(!e)return render();
+    const resp=skip?'':($('#ans',root)?.value||'');
+    if(!skip&&!resp.trim()){toast('Écris au moins un mot');return}
+    const r=checkAnswer(resp,e.a);
+    d.pos++;d.done++;if(r.ok)d.ok++;store.set('deck_'+kind,d);
+    if(navigator.vibrate)navigator.vibrate(r.ok?30:[40,60,40]);
+    last={w,resp,answers:e.a,...r};render();
+  }
+  function renderList(b){
+    const W=words();const ed=editing!=null?W.find(e=>e.w===editing):null;
+    b.innerHTML=`<div class="card"><h3>${ed?'✏️ Modifier':'➕ Ajouter un mot'}</h3>
+      <input class="inp" id="nw" placeholder="Mot ou expression" value="${ed?esc(ed.w):''}">
+      <input class="inp" id="na" placeholder="${K.label} séparés par des virgules" value="${ed?esc(ed.a.join(', ')):''}">
+      <div class="row">${ed?'<button class="btn ghost" data-act="cancel">Annuler</button>':''}<button class="btn pri" data-act="add">${ed?'Enregistrer':'Ajouter'}</button></div></div>
+      <input class="inp" id="flt" placeholder="🔍 Rechercher dans mes ${W.length} mots…">
+      <div class="card" id="wl">${W.map(e=>`<div class="wi"><div><b>${esc(e.w)}</b><span>${esc(e.a.join(', '))}</span></div>
+        <button class="ib" data-act="edit" data-w="${esc(e.w)}">✏️</button><button class="ib" data-act="del" data-w="${esc(e.w)}">🗑</button></div>`).join('')||'<p class="sub">Aucun mot.</p>'}</div>`;
+    $('#flt',b).oninput=ev=>{const q=norm(ev.target.value);$$('.wi',b).forEach(x=>x.hidden=q&&!norm(x.textContent).includes(q))};
+    if(ed)$('#nw',b).focus();
+  }
+  function addWord(){
+    const w=$('#nw',root).value.trim(),a=splitAns($('#na',root).value);
+    if(!w||!a.length){toast(`Écris le mot et au moins un ${K.label.slice(0,-1)}`);return}
+    let W=words();
+    if(editing!=null){const e=W.find(x=>x.w===editing);if(e){e.w=w;e.a=a}editing=null;toast('Modifié ✓')}
+    else{const e=W.find(x=>norm(x.w)===norm(w));if(e){a.forEach(x=>{if(!e.a.some(y=>norm(y)===norm(x)))e.a.push(x)});toast('Mot existant : réponses fusionnées ✓')}else{W.unshift({w,a});toast('Ajouté ✓')}}
+    saveWords(W);render();
+  }
+  function renderCode(b){
+    b.innerHTML=`<p class="sub" style="margin-bottom:12px">Ta liste sous forme de script Python (le même jeu que ton fichier). Copie-le pour le garder ailleurs, ou colle un code ici et importe-le.</p>
+      <textarea class="code" id="code" spellcheck="false" autocapitalize="off">${esc(toPy())}</textarea>
+      <div class="row"><button class="btn pri" data-act="copy">📋 Copier</button><button class="btn" data-act="dl">⬇️ .py</button></div>
+      <div class="row"><button class="btn" data-act="merge">➕ Importer (ajouter)</button><button class="btn ghost" data-act="replace">♻️ Remplacer tout</button></div>`;
+  }
+  function importPy(replace){
+    const list=parsePy($('#code',root).value);
+    if(!list.length){toast('Aucun mot trouvé dans le code');return}
+    if(replace){if(!confirm(`Remplacer toute ta liste par ces ${list.length} mots ?`))return;saveWords(list);store.del('deck_'+kind)}
+    else{const W=words();let added=0;list.forEach(n=>{const e=W.find(x=>norm(x.w)===norm(n.w));if(e)n.a.forEach(x=>{if(!e.a.some(y=>norm(y)===norm(x)))e.a.push(x)});else{W.push(n);added++}});saveWords(W);toast(`${added} nouveau(x) mot(s) ajouté(s) ✓`)}
+    if(replace)toast(`${list.length} mots importés ✓`);
+    render();
+  }
+  root.addEventListener('click',e=>{
+    const t=e.target.closest('[data-tab]');if(t){tab=t.dataset.tab;editing=null;render();return}
+    const a=e.target.closest('[data-act]');if(!a)return;
+    ({check:()=>doCheck(false),skip:()=>doCheck(true),next:()=>{last=null;render();setTimeout(()=>$('#ans',root)?.focus(),50)},restart,
+      tolist:()=>{tab='list';render()},add:addWord,cancel:()=>{editing=null;render()},
+      edit:()=>{editing=a.dataset.w;render();window.scrollTo({top:0,behavior:'smooth'})},
+      del:()=>{if(confirm(`Supprimer « ${a.dataset.w} » ?`)){saveWords(words().filter(x=>x.w!==a.dataset.w));render()}},
+      copy:()=>copyText($('#code',root).value),dl:()=>download(kind==='syn'?'synonymes.py':'antonymes.py',$('#code',root).value),
+      merge:()=>importPy(false),replace:()=>importPy(true)})[a.dataset.act]?.();
+  });
+  root.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.id==='ans'){e.preventDefault();doCheck(false)}else if(e.key==='Enter'&&(e.target.id==='nw'||e.target.id==='na')){e.preventDefault();addWord()}});
+  return{render:()=>{render()},stat:()=>{const d=deck();return `${d.order.length} mots · tour ${d.round} · ${Math.min(d.pos,d.order.length)}/${d.order.length}`}};
+}
+const Q={syn:Quiz('syn'),ant:Quiz('ant')};
+ 
+/* ================= JEU 4 : MINUTEUR ================= */
+const C=722.57;let tst=store.get('timer',{dur:300,endAt:null,rem:null}),actx,wake;
+const PRE=[1,2,3,5,10,15,20,30];
+$('#tPre').innerHTML=PRE.map(m=>`<button class="chip" data-m="${m}">${m} min</button>`).join('');
+const tLeft=()=>tst.endAt?Math.max(0,(tst.endAt-Date.now())/1000):tst.rem!=null?tst.rem:tst.dur;
+const fmt=s=>{s=Math.ceil(s);const h=Math.floor(s/3600),m=Math.floor(s%3600/60),x=s%60;return(h?h+':'+String(m).padStart(2,'0'):String(m).padStart(2,'0'))+':'+String(x).padStart(2,'0')};
+function tSave(){store.set('timer',tst)}
+function tDraw(){
+  const l=tLeft(),running=!!tst.endAt,paused=!running&&tst.rem!=null;
+  $('#tTime').textContent=fmt(l);
+  $('#tPrg').style.strokeDashoffset=C*(1-l/tst.dur);
+  $('#tState').textContent=running?'En cours…':paused?'En pause':'Prêt';
+  $('#tGo').textContent=running?'⏸ Pause':paused?'▶ Reprendre':'▶ Démarrer';
+  $('#tCard').classList.toggle('running',running||paused);
+  if(document.activeElement!==$('#tMin'))$('#tMin').value=Math.round(tst.dur/60);
+  $$('#tPre .chip').forEach(c=>c.classList.toggle('on',+c.dataset.m*60===tst.dur));
+}
+function tSet(min){min=Math.min(180,Math.max(1,Math.round(+min||1)));tst={dur:min*60,endAt:null,rem:null};tSave();tDraw()}
+async function wakeOn(){try{if('wakeLock' in navigator)wake=await navigator.wakeLock.request('screen')}catch(e){}}
+function wakeOff(){try{wake&&wake.release()}catch(e){}wake=null}
+function unlockAudio(){try{actx=actx||new(window.AudioContext||window.webkitAudioContext)();if(actx.state==='suspended')actx.resume()}catch(e){}}
+function beep(){if(!actx)return;const t0=actx.currentTime;for(let k=0;k<4;k++){const o=actx.createOscillator(),g=actx.createGain();o.type='sine';o.frequency.value=k%2?660:880;o.connect(g);g.connect(actx.destination);const t=t0+k*.38;g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.45,t+.02);g.gain.exponentialRampToValueAtTime(.0001,t+.32);o.start(t);o.stop(t+.35)}}
+$('#tGo').onclick=()=>{unlockAudio();
+  if(tst.endAt){tst.rem=tLeft();tst.endAt=null;wakeOff()}
+  else{tst.endAt=Date.now()+tLeft()*1000;tst.rem=null;wakeOn()}
+  tSave();tDraw()};
+$('#tReset').onclick=()=>{tst.endAt=null;tst.rem=null;tSave();wakeOff();tDraw()};
+$('#tPre').onclick=e=>{const m=e.target.closest('[data-m]')?.dataset.m;if(m)tSet(m)};
+$$('.stepper button').forEach(b=>b.onclick=()=>tSet(Math.round(tst.dur/60)+ +b.dataset.s));
+$('#tMin').onchange=e=>tSet(e.target.value);
+$('#doneOk').onclick=()=>{$('#done').hidden=true;tDraw()};
+setInterval(()=>{
+  if(tst.endAt&&tLeft()<=0){tst.endAt=null;tst.rem=null;tSave();wakeOff();beep();if(navigator.vibrate)navigator.vibrate([300,150,300,150,500]);$('#done').hidden=false}
+  if($('#v-timer').classList.contains('on'))tDraw();
+},250);
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&tst.endAt)wakeOn()});
+ 
+/* ================= SAUVEGARDE ================= */
+function exportData(){const data={};for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k.startsWith('fp_')&&!k.startsWith('fp_tr_'))data[k]=localStorage.getItem(k)}return JSON.stringify({app:'francais-pro',v:1,date:new Date().toISOString(),data})}
+$('#bkCopy').onclick=()=>copyText(exportData());
+$('#bkDl').onclick=()=>download('francais-pro-sauvegarde-'+new Date().toISOString().slice(0,10)+'.json',exportData(),'application/json');
+$('#bkRestore').onclick=()=>{
+  try{const o=JSON.parse($('#bkIn').value);if(o.app!=='francais-pro')throw 0;
+    if(!confirm('Remplacer les données actuelles par cette sauvegarde ?'))return;
+    Object.keys(localStorage).filter(k=>k.startsWith('fp_')).forEach(k=>localStorage.removeItem(k));
+    Object.entries(o.data).forEach(([k,v])=>localStorage.setItem(k,v));
+    toast('Sauvegarde restaurée ✓');setTimeout(()=>location.reload(),700);
+  }catch(e){toast('⚠️ Sauvegarde invalide')}
+};
+ 
+/* ================= ACCUEIL & NAVIGATION ================= */
+function renderHome(){
+  const h=new Date().getHours();$('#hello').textContent=(h<5||h>=18?'Bonsoir':'Bonjour')+' 👋';
+  const D=Docs.all(),act=D.find(d=>!d.done);
+  $('#s1').textContent=D.length?`${D.length} document(s)${act?' · « '+act.title.slice(0,22)+(act.title.length>22?'…':'')+' » '+(act.pos+1)+'/'+act.chunks.length:''}`:'Ajoute ton premier document';
+  $('#s2').textContent=Q.syn.stat();$('#s3').textContent=Q.ant.stat();
+  $('#s4').textContent=tst.endAt?'⏳ En cours : '+fmt(tLeft()):'Dernière durée : '+Math.round(tst.dur/60)+' min';
+}
+const NAV={home:'home',read:'read',doc:'read',syn:'syn',ant:'ant',timer:'timer',backup:'home'};
+function route(){
+  const [v,arg]=(location.hash.slice(1)||'home').split('/');
+  const view=v==='read'&&arg?'doc':(document.getElementById('v-'+v)?v:'home');
+  $$('.view').forEach(x=>x.classList.toggle('on',x.id==='v-'+view));
+  $$('nav.tab a').forEach(a=>a.classList.toggle('on',a.dataset.v===NAV[view]));
+  hideSelBar();closeSheet();window.scrollTo(0,0);
+  ({home:renderHome,read:renderDocs,doc:()=>openDoc(arg),syn:Q.syn.render,ant:Q.ant.render,timer:tDraw}[view]||(()=>{}))();
+}
+window.addEventListener('hashchange',route);
+route();
+</script>
+</body>
+</html>
+ 
